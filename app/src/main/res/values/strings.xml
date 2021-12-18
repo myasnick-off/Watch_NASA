@@ -16,4 +16,8 @@
     <string name="yesterday">Yesterday</string>
     <string name="today">Today</string>
     <string name="apod_fab" translatable="false">apod fab</string>
+    <string name="gray_moon" translatable="false">Gray moon</string>
+    <string name="red_mars" translatable="false">Red Mars</string>
+    <string name="deep_space" translatable="false">Deep space</string>
+    <string name="choose_app_theme">"Choose the app theme: "</string>
 </resources>

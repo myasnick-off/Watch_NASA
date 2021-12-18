@@ -100,8 +100,8 @@
         android:id="@+id/apod_bottom_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="?colorPrimaryVariant"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/teal_700"
         app:fabAlignmentMode="center"
         app:navigationIcon="@drawable/ic_baseline_menu_24" />
 
@@ -109,7 +109,6 @@
         android:id="@+id/apod_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/purple_700"
         android:src="@drawable/ic_baseline_add_48"
         app:layout_anchor="@id/apod_bottom_appbar"
         android:contentDescription="@string/apod_fab" />

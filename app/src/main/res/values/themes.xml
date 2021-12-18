@@ -13,4 +13,52 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--    Moon style-->
+    <style name="MoonStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary color. -->
+        <item name="colorPrimary">@color/color_gray_medium</item>
+        <item name="colorPrimaryVariant">@color/color_gray_dark</item>
+        <item name="colorOnPrimary">@color/color_gray_light</item>
+        <!-- Secondary color. -->
+        <item name="colorSecondary">@color/color_moon_light</item>
+        <item name="colorSecondaryVariant">@color/color_moon_medium</item>
+        <item name="colorOnSecondary">@color/color_moon_dark</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--fonts-->
+        <item name="fontFamily">@font/jura_light</item>
+    </style>
+
+    <!--    Mars style-->
+    <style name="MarsStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary color. -->
+        <item name="colorPrimary">@color/color_brown_medium</item>
+        <item name="colorPrimaryVariant">@color/color_brown_dark</item>
+        <item name="colorOnPrimary">@color/color_brown_light</item>
+        <!-- Secondary color. -->
+        <item name="colorSecondary">@color/color_red_light</item>
+        <item name="colorSecondaryVariant">@color/color_red_medium</item>
+        <item name="colorOnSecondary">@color/color_red_dark</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--fonts-->
+        <item name="fontFamily">@font/open_sans_light</item>
+    </style>
+
+    <!--    Deep space style-->
+    <style name="SpaceStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary color. -->
+        <item name="colorPrimary">@color/color_medium</item>
+        <item name="colorPrimaryVariant">@color/color_dark</item>
+        <item name="colorOnPrimary">@color/color_light</item>
+        <!-- Secondary color. -->
+        <item name="colorSecondary">@color/color_blue_light</item>
+        <item name="colorSecondaryVariant">@color/color_blue_medium</item>
+        <item name="colorOnSecondary">@color/color_blue_dark</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--fonts-->
+        <item name="fontFamily">@font/sarpanch</item>
+    </style>
 </resources>

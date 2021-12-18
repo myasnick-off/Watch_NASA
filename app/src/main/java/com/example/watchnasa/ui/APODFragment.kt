@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -46,11 +45,11 @@ class APODFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bottomAppbarInit()
 
-
         val observer = Observer<ApodState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getAPODFromServer(Date())
 
+        // обработчик кнопки Википедии, открывает браузер с запросом на сайт Википедии
         wikiTextInputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(getString(R.string.wiki_url) + wikiEditText.text.toString())
@@ -109,10 +108,15 @@ class APODFragment : Fragment() {
         inflater.inflate(R.menu.menu_bottom_appbar, menu)
     }
 
+    // обработчик кнопок нижнего меню
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_settings -> {
-                Toast.makeText(context, R.string.settings, Toast.LENGTH_SHORT).show()
+                // запускаем фрагмент с настройками
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.container, SettingsFragment.newInstance(), "")
+                    .addToBackStack("SettingsFragment")
+                    .commit()
             }
             android.R.id.home -> {
                 BottNavDrawingFragment().show(requireActivity().supportFragmentManager, "")
@@ -126,6 +130,7 @@ class APODFragment : Fragment() {
         _binding = null
     }
 
+    // иницифлизация нижнего меню
     private fun bottomAppbarInit() {
         val context = activity as MainActivity
         context.setSupportActionBar(binding.apodBottomAppbar)
