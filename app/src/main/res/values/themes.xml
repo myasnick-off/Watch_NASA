@@ -1,20 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.WatchNASA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
-
-    <!--    Moon style-->
+    <!--    Moon theme-->
     <style name="MoonStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary color. -->
         <item name="colorPrimary">@color/color_gray_medium</item>
@@ -28,9 +13,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--fonts-->
         <item name="fontFamily">@font/jura_light</item>
+        <!--chipGroup-->
+        <item name="chipGroupStyle">@style/MyChipGroupStyle</item>
     </style>
 
-    <!--    Mars style-->
+    <!--    Mars theme-->
     <style name="MarsStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary color. -->
         <item name="colorPrimary">@color/color_brown_medium</item>
@@ -44,9 +31,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--fonts-->
         <item name="fontFamily">@font/open_sans_light</item>
+        <!--chipGroup-->
+        <item name="chipGroupStyle">@style/MyChipGroupStyle</item>
     </style>
 
-    <!--    Deep space style-->
+    <!--    Deep space theme-->
     <style name="SpaceStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary color. -->
         <item name="colorPrimary">@color/color_medium</item>
@@ -60,5 +49,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--fonts-->
         <item name="fontFamily">@font/sarpanch</item>
+        <!--chipGroup-->
+        <item name="chipGroupStyle">@style/MyChipGroupStyle</item>
+    </style>
+
+    <style name="MyChipGroupStyle" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="singleSelection">true</item>
+        <item name="chipSpacingHorizontal">16dp</item>
     </style>
 </resources>

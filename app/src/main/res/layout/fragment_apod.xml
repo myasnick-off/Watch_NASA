@@ -42,8 +42,7 @@
             android:layout_marginTop="@dimen/margin_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/apod_image_view"
-            app:singleSelection="true">
+            app:layout_constraintBottom_toTopOf="@id/apod_image_view">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/before_yesterday_chip"
