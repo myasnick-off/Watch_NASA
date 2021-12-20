@@ -10,4 +10,6 @@
     <dimen name="text_18">18sp</dimen>
     <dimen name="padding_8">8dp</dimen>
     <dimen name="height_80">80dp</dimen>
+    <dimen name="height_450">450dp</dimen>
+    <dimen name="peek_height_24">24dp</dimen>
 </resources>

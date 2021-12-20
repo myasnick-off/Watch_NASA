@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -30,7 +31,10 @@ class APODFragment : Fragment() {
         get() {
             return _binding!!
         }
+    // флаг нахождения на главном фрагменте
     private var isMain = true
+    // переменная состояния BottomSheet
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,10 +61,13 @@ class APODFragment : Fragment() {
         }
 
         // изменяем масштаб APOD-картинки отслеживая состояние BottomSheet
-        val behavior = BottomSheetBehavior.from(binding.bottomSheet.bottomSheetContainer)
-        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
-
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(newState) {
+                    BottomSheetBehavior.STATE_EXPANDED -> moveFabToEnd()
+                    BottomSheetBehavior.STATE_COLLAPSED -> moveFabToCenter()
+                }
+            }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 apodImageView.scaleX = 1 + slideOffset
                 apodImageView.scaleY = 1 + slideOffset
@@ -84,21 +91,14 @@ class APODFragment : Fragment() {
             }
         }
 
-        // управление кнопкой fab и BottomAppbar
+        // управление кнопкой fab, кнопками BottomAppbar и состоянием BottomSheet
         apodFab.setOnClickListener {
             if (isMain) {
-                isMain = false
-                apodBottomAppbar.navigationIcon = null
-                apodBottomAppbar.replaceMenu(R.menu.menu_bottom_search)
-                apodBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                apodFab.setImageResource(R.drawable.ic_baseline_arrow_back_ios_24)
+                moveFabToEnd()
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             } else {
-                isMain = true
-                apodBottomAppbar.navigationIcon =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_menu_24)
-                apodBottomAppbar.replaceMenu(R.menu.menu_bottom_appbar)
-                apodBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                apodFab.setImageResource(R.drawable.ic_baseline_add_48)
+                moveFabToCenter()
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
     }
@@ -135,6 +135,7 @@ class APODFragment : Fragment() {
         val context = activity as MainActivity
         context.setSupportActionBar(binding.apodBottomAppbar)
         setHasOptionsMenu(true)
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet.bottomSheetContainer)
     }
 
     private fun renderData(apodState: ApodState) = with(binding) {
@@ -177,6 +178,26 @@ class APODFragment : Fragment() {
             .create()
             .show()
     }
+
+    // двигаем кнопку fab враво и меняем кнопки меню
+    private fun moveFabToEnd() = with(binding) {
+        isMain = false
+        apodBottomAppbar.navigationIcon = null
+        apodBottomAppbar.replaceMenu(R.menu.menu_bottom_search)
+        apodBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+        apodFab.setImageResource(R.drawable.ic_baseline_arrow_back_ios_24)
+    }
+
+    // возвращаем кнопку fab в центр и меняем кнопки меню
+    private fun moveFabToCenter() = with(binding) {
+        isMain = true
+        apodBottomAppbar.navigationIcon =
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_menu_24)
+        apodBottomAppbar.replaceMenu(R.menu.menu_bottom_appbar)
+        apodBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+        apodFab.setImageResource(R.drawable.ic_baseline_add_48)
+    }
+
 
     companion object {
 
