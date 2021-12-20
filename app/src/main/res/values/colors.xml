@@ -7,4 +7,28 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--    moon colors-->
+    <color name="color_gray_dark">#29434e</color>
+    <color name="color_gray_medium">#546e7a</color>
+    <color name="color_gray_light">#819ca9</color>
+    <color name="color_moon_dark">#82ada9</color>
+    <color name="color_moon_medium">#b2dfdb</color>
+    <color name="color_moon_light">#e5ffff</color>
+
+    <!--    mars colors-->
+    <color name="color_brown_dark">#420900</color>
+    <color name="color_brown_medium">#703313</color>
+    <color name="color_brown_light">#a35e3b</color>
+    <color name="color_red_dark">#800000</color>
+    <color name="color_red_medium">#b7301e</color>
+    <color name="color_red_light">#f06248</color>
+
+    <!--    deep space colors-->
+    <color name="color_dark">#000119</color>
+    <color name="color_medium">#1e2838</color>
+    <color name="color_light">#465062</color>
+    <color name="color_blue_dark">#000059</color>
+    <color name="color_blue_medium">#0a0287</color>
+    <color name="color_blue_light">#5131b8</color>
 </resources>
