@@ -1,4 +1,4 @@
-package com.example.watchnasa.ui
+package com.example.watchnasa.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

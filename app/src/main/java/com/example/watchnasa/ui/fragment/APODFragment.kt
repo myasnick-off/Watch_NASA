@@ -1,4 +1,4 @@
-package com.example.watchnasa.ui
+package com.example.watchnasa.ui.fragment
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -14,6 +14,7 @@ import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentApodBinding
 import com.example.watchnasa.repository.ApodResponseData
+import com.example.watchnasa.ui.MainActivity
 import com.example.watchnasa.viewmodel.ApodState
 import com.example.watchnasa.viewmodel.ApodViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -78,7 +79,7 @@ class APODFragment : Fragment() {
         apodChipGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId) {
                 R.id.before_yesterday_chip -> {
-                    val beforeYesterday = Date(Date().time - MSEC_IN_DAY*2)
+                    val beforeYesterday = Date(Date().time - MSEC_IN_DAY *2)
                     viewModel.getAPODFromServer(beforeYesterday)
                 }
                 R.id.yesterday_chip -> {
@@ -114,8 +115,7 @@ class APODFragment : Fragment() {
             R.id.action_settings -> {
                 // запускаем фрагмент с настройками
                 parentFragmentManager.beginTransaction()
-                    .add(R.id.container, SettingsFragment.newInstance(), "")
-                    .addToBackStack("SettingsFragment")
+                    .replace(R.id.container, SettingsFragment.newInstance(), "")
                     .commit()
             }
             android.R.id.home -> {
