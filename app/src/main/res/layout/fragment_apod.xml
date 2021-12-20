@@ -68,21 +68,16 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-        <FrameLayout
-            android:id="@+id/apod_image_container"
+        <com.example.watchnasa.utils.SquareImageView
+            android:id="@+id/apod_image_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_450"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_baseline_wallpaper_96"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apod_chip_group">
+            app:layout_constraintTop_toBottomOf="@+id/apod_chip_group"/>
 
-            <com.example.watchnasa.utils.SquareImageView
-                android:id="@+id/apod_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_baseline_wallpaper_96" />
-        </FrameLayout>
 
 
         <ProgressBar
