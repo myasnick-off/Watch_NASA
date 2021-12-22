@@ -112,10 +112,10 @@ class APODFragment : Fragment() {
     // обработчик кнопок нижнего меню
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.action_settings -> {
-                // запускаем фрагмент с настройками
+            R.id.action_planets_photo -> {
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, SettingsFragment.newInstance(), "")
+                    .add(R.id.container, PlanetsNavigationFragment.newInstance(), "")
+                    .addToBackStack("PlanetsNavigationFragment")
                     .commit()
             }
             android.R.id.home -> {

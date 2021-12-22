@@ -20,4 +20,8 @@
     <string name="red_mars" translatable="false">Red Mars</string>
     <string name="deep_space" translatable="false">Deep space</string>
     <string name="choose_app_theme">"Choose the app theme: "</string>
+    <string name="planets_photo">Planets photo</string>
+    <string name="earth">Earth</string>
+    <string name="mars">Mars</string>
+    <string name="moon">Moon</string>
 </resources>
