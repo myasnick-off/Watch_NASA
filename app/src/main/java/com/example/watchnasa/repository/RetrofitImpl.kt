@@ -3,15 +3,19 @@ package com.example.watchnasa.repository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApodRetrofitImpl {
+class RetrofitImpl {
 
     private val baseUrl = "https://api.nasa.gov/"
 
-    fun getRetrofitImpl() : ApodAPI {
-        val apodRetrofit = Retrofit.Builder()
+    private val adapter: NasaAPI by lazy {
+        Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return apodRetrofit.create(ApodAPI::class.java)
+            .create(NasaAPI::class.java)
+    }
+
+    fun getRetrofitImpl() : NasaAPI {
+        return adapter
     }
 }
