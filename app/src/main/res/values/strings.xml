@@ -23,5 +23,11 @@
     <string name="planets_photo">Planets photo</string>
     <string name="earth">Earth</string>
     <string name="mars">Mars</string>
-    <string name="moon">Moon</string>
+    <string name="solar">Solar Flare</string>
+    <string name="start_time">Start Time: </string>
+    <string name="peak_time">Peak Time: </string>
+    <string name="end_time">End Time: </string>
+    <string name="intensity">Intensity: </string>
+    <string name="region">Source Region: </string>
+    <string name="solar_flare">Solar Flare Data</string>
 </resources>

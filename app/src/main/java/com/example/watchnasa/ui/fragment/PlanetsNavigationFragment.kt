@@ -37,8 +37,8 @@ class PlanetsNavigationFragment: Fragment() {
                     launchFragment(MarsFragment.newInstance())
                     true
                 }
-                R.id.action_moon -> {
-                    launchFragment(MoonFragment.newInstance())
+                R.id.action_solar -> {
+                    launchFragment(SolarFragment.newInstance())
                     true
                 }
                 else -> false

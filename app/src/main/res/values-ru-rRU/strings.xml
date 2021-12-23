@@ -19,5 +19,11 @@
     <string name="planets_photo">Фото планет</string>
     <string name="earth">Земля</string>
     <string name="mars">Марс</string>
-    <string name="moon">Луна</string>
+    <string name="solar">Солнечные вспышки</string>
+    <string name="start_time">"Начало: "</string>
+    <string name="peak_time">"Пик: "</string>
+    <string name="end_time">"Окончание: "</string>
+    <string name="intensity">"Интерсивность: "</string>
+    <string name="region">"Область источника: "</string>
+    <string name="solar_flare">Солнечные вспышки</string>
 </resources>

@@ -14,8 +14,8 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_moon"
-        android:title="@string/moon"
-        android:icon="@drawable/ic_moon"
+        android:id="@+id/action_solar"
+        android:title="@string/solar"
+        android:icon="@drawable/ic_solar"
         app:showAsAction="ifRoom" />
 </menu>
