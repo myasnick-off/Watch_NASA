@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.MediaController
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -32,8 +33,10 @@ class APODFragment : Fragment() {
         get() {
             return _binding!!
         }
+
     // флаг нахождения на главном фрагменте
     private var isMain = true
+
     // переменная состояния BottomSheet
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -62,13 +65,15 @@ class APODFragment : Fragment() {
         }
 
         // изменяем масштаб APOD-картинки отслеживая состояние BottomSheet
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when(newState) {
+                when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> moveFabToEnd()
                     BottomSheetBehavior.STATE_COLLAPSED -> moveFabToCenter()
                 }
             }
+
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 apodImageView.scaleX = 1 + slideOffset
                 apodImageView.scaleY = 1 + slideOffset
@@ -77,9 +82,9 @@ class APODFragment : Fragment() {
 
         // при выборе одного из чипов загружаем соответсвующую картинку дня
         apodChipGroup.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId) {
+            when (checkedId) {
                 R.id.before_yesterday_chip -> {
-                    val beforeYesterday = Date(Date().time - MSEC_IN_DAY *2)
+                    val beforeYesterday = Date(Date().time - MSEC_IN_DAY * 2)
                     viewModel.getAPODFromServer(beforeYesterday)
                 }
                 R.id.yesterday_chip -> {
@@ -111,7 +116,7 @@ class APODFragment : Fragment() {
 
     // обработчик кнопок нижнего меню
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_planets_photo -> {
                 parentFragmentManager.beginTransaction()
                     .add(R.id.container, PlanetsNavigationFragment.newInstance(), "")
@@ -156,10 +161,22 @@ class APODFragment : Fragment() {
 
     // метод вывода данных, полученных с сервера, на экран
     private fun showData(apodData: ApodResponseData) = with(binding) {
-        apodImageView.load(apodData.url) {
-            lifecycle(this@APODFragment)
-            error(R.drawable.ic_baseline_broken_image_96)
-            placeholder(R.drawable.ic_baseline_wallpaper_96)
+        if (apodData.mediaType == "image") {
+            apodImageView.visibility = View.VISIBLE
+            apodVideoButton.visibility = View.GONE
+            apodImageView.load(apodData.url) {
+                lifecycle(this@APODFragment)
+                error(R.drawable.ic_baseline_broken_image_96)
+                placeholder(R.drawable.ic_baseline_wallpaper_96)
+            }
+        } else {
+            apodImageView.visibility = View.GONE
+            apodVideoButton.visibility = View.VISIBLE
+            apodVideoButton.setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(apodData.url)
+                })
+            }
         }
         bottomSheet.bottomSheetTitle.text = apodData.title
         bottomSheet.bottomSheetTextView.text = apodData.explanation

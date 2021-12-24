@@ -14,4 +14,6 @@
     <dimen name="peek_height_24">24dp</dimen>
     <dimen name="text_24">24sp</dimen>
     <dimen name="radius_10">10dp</dimen>
+    <dimen name="height_160">160dp</dimen>
+    <dimen name="width_270">270dp</dimen>
 </resources>
