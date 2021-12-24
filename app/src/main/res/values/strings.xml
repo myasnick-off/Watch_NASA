@@ -30,4 +30,5 @@
     <string name="intensity">Intensity: </string>
     <string name="region">Source Region: </string>
     <string name="solar_flare">Solar Flare Data</string>
+    <string name="sun">Sun</string>
 </resources>

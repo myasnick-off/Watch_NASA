@@ -28,7 +28,7 @@
     <color name="color_dark">#000119</color>
     <color name="color_medium">#1e2838</color>
     <color name="color_light">#465062</color>
-    <color name="color_blue_dark">#000059</color>
-    <color name="color_blue_medium">#0a0287</color>
-    <color name="color_blue_light">#5131b8</color>
+    <color name="color_blue_dark">#010178</color>
+    <color name="color_blue_medium">#0F03C6</color>
+    <color name="color_blue_light">#BB86FC</color>
 </resources>
