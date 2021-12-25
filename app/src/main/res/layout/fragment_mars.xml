@@ -19,41 +19,30 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include
-            android:id="@+id/mars_data_card"
-            layout="@layout/item_mars_photo_data"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/mars_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="@dimen/height_8" />
 
-        <com.example.watchnasa.utils.SquareImageView
-            android:id="@+id/mars_photo_view"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mars_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_wallpaper_96" />
+            android:layout_height="match_parent" />
 
-        <ProgressBar
-            android:id="@+id/mars_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/mars_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

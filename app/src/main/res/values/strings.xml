@@ -40,6 +40,6 @@
     <string name="no_data_for_selected_period">No data for selected period!</string>
     <string name="choose_another_selected_period">Please, choose another date range!</string>
     <string name="ok" translatable="false">OK</string>
-    <string name="earth_photo_description">Earth photo description</string>
-    <string name="date">date</string>
+    <string name="earth_photo_description" translatable="false">Earth photo description</string>
+    <string name="date" translatable="false">date</string>
 </resources>

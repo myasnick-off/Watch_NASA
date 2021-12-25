@@ -1,4 +1,4 @@
-package com.example.watchnasa.ui.fragment
+package com.example.watchnasa.ui.fragment.apod
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -16,6 +16,7 @@ import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentApodBinding
 import com.example.watchnasa.repository.dto.ApodResponseData
 import com.example.watchnasa.ui.MainActivity
+import com.example.watchnasa.ui.fragment.PlanetsNavigationFragment
 import com.example.watchnasa.viewmodel.ApodState
 import com.example.watchnasa.viewmodel.ApodViewModel
 import com.google.android.material.bottomappbar.BottomAppBar

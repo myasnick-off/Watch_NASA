@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.watchnasa.R
-import com.example.watchnasa.ui.fragment.APODFragment
+import com.example.watchnasa.ui.fragment.apod.APODFragment
 
 private const val KEY_PREF = "app_settings"
 private const val KEY_THEME = "current_theme"

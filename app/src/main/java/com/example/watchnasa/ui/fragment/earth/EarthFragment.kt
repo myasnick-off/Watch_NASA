@@ -1,4 +1,4 @@
-package com.example.watchnasa.ui.fragment
+package com.example.watchnasa.ui.fragment.earth
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -15,7 +15,6 @@ import com.example.watchnasa.databinding.FragmentEarthBinding
 import com.example.watchnasa.repository.dto.EpicResponseData
 import com.example.watchnasa.viewmodel.EpicState
 import com.example.watchnasa.viewmodel.EpicViewModel
-import java.util.*
 
 class EarthFragment : Fragment() {
 

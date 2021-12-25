@@ -1,6 +1,5 @@
-package com.example.watchnasa.ui.fragment
+package com.example.watchnasa.ui.fragment.mars
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -9,13 +8,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentMarsBinding
 import com.example.watchnasa.repository.dto.MarsResponseData
 import com.example.watchnasa.ui.MainActivity
 import com.example.watchnasa.viewmodel.MarsDataState
 import com.example.watchnasa.viewmodel.MarsViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
 
 class MarsFragment : Fragment() {
@@ -57,6 +57,7 @@ class MarsFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    // по нажатию кнопки меню запускаем календарь для выбора даты интересующих фото
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_calendar -> {
@@ -94,30 +95,35 @@ class MarsFragment : Fragment() {
         }
     }
 
-
+    // метод обработки данных с сервера
     private fun handleDataFromServer(marsData: MarsResponseData) {
+        // если список с фотоданными не пустой, заполняем этими фотоданными ViewPager
         if (marsData.photos.isNotEmpty()) {
+            // если фотоданные оказались не в выбранной дате, а нашлись в ближайшей, сообщаем об этом
             if (isNearestDate) {
                 isNearestDate = false
                 Toast.makeText(context, R.string.nearest_date_message, Toast.LENGTH_LONG).show()
             }
-            showData(marsData)
+            createViewPager(marsData)
         } else {
+            // если по выбранной дате список с фотоданными пустой,
+                // запускаем поиск ближайшей даты с наличием фотоданных
             isNearestDate = true
             calendar.add(Calendar.DAY_OF_MONTH, -1)
             viewModel.getMarsPhotoFromServer(calendar.time)
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun showData(marsData: MarsResponseData) = with(binding) {
-        val photoData = marsData.photos.last()
-        marsDataCard.marsRoverTextView.text = "${getString(R.string.rover_name)} Curiosity"
-        marsDataCard.marsCameraTypeTextView.text =
-            "${getString(R.string.camera_type)} ${photoData.camera.fullName}"
-        marsDataCard.marsPhotoDateTextView.text =
-            "${getString(R.string.earth_date)} ${photoData.earthDate}"
-        marsPhotoView.load(photoData.imgSrc)
+    // метод создания ViewPager'а для заполнения фотоданными
+    private fun createViewPager(marsData: MarsResponseData) = with(binding) {
+        val photoDataList = marsData.photos
+        // настраиваем TabLayout
+        marsTabLayout.tabMode = TabLayout.MODE_FIXED
+        // создаем и присваиваем адаптер ViewPager'у
+        val adapter = ViewPagerAdapter(childFragmentManager, lifecycle, photoDataList)
+        marsViewPager.adapter = adapter
+        // связываем TabLayout и ViewPager вместе
+        TabLayoutMediator(marsTabLayout, marsViewPager) { tab, position -> }.attach()
     }
 
     private fun appbarInit() {

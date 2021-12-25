@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentPlanetsNavBinding
+import com.example.watchnasa.ui.fragment.earth.EarthFragment
+import com.example.watchnasa.ui.fragment.mars.MarsFragment
+import com.example.watchnasa.ui.fragment.sun.SolarFragment
 
 class PlanetsNavigationFragment: Fragment() {
 

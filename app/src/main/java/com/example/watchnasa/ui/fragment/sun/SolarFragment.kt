@@ -1,4 +1,4 @@
-package com.example.watchnasa.ui.fragment
+package com.example.watchnasa.ui.fragment.sun
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog

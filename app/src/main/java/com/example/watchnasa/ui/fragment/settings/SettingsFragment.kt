@@ -1,4 +1,4 @@
-package com.example.watchnasa.ui.fragment
+package com.example.watchnasa.ui.fragment.settings
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSettingsBinding
 import com.example.watchnasa.ui.*
+import com.example.watchnasa.ui.fragment.apod.APODFragment
 import com.google.android.material.tabs.TabLayout
 
 class SettingsFragment: Fragment(), BackPressedMonitor {
