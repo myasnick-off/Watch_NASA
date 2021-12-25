@@ -17,7 +17,7 @@ import com.example.watchnasa.viewmodel.EpicState
 import com.example.watchnasa.viewmodel.EpicViewModel
 import java.util.*
 
-class EarthFragment: Fragment() {
+class EarthFragment : Fragment() {
 
     private val viewModel: EpicViewModel by lazy {
         ViewModelProvider(this)[EpicViewModel::class.java]
@@ -25,7 +25,7 @@ class EarthFragment: Fragment() {
 
     private var _binding: FragmentEarthBinding? = null
     private val binding: FragmentEarthBinding
-    get() = _binding!!
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,10 +49,10 @@ class EarthFragment: Fragment() {
     }
 
     private fun renderData(state: EpicState) = with(binding) {
-        when(state) {
+        when (state) {
             is EpicState.Loading -> earthProgressBar.visibility = View.VISIBLE
             is EpicState.Success -> {
-                earthPhotoView.load(imageUrlFromData(state.epicData))
+                showData(state.epicData)
                 earthProgressBar.visibility = View.GONE
             }
             is EpicState.Error -> {
@@ -62,14 +62,18 @@ class EarthFragment: Fragment() {
         }
     }
 
+    private fun showData(epicData: EpicResponseData) = with(binding) {
+        earthPhotoView.load(imageUrlFromData(epicData))
+        earthDataCard.photoTitleTextView.text = epicData.caption
+        earthDataCard.photoDateTextView.text = epicData.date
+    }
+
     private fun imageUrlFromData(epicData: EpicResponseData): String {
-        val imageName = epicData.image + ".png"
+        val imageName = "${epicData.image}.png"
         val imageDate = epicData.date
             .replace("-", "/")
             .substringBefore(" ", "")
-        return "https://api.nasa.gov/EPIC/archive/natural/" +
-                imageDate + "/png/" + imageName +
-                "?api_key=" + BuildConfig.NASA_API_KEY
+        return "https://api.nasa.gov/EPIC/archive/natural/${imageDate}/png/${imageName}?api_key=${BuildConfig.NASA_API_KEY}"
     }
 
     // метод отображения диалога с ошибкой загрузки контента
