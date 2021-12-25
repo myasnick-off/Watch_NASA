@@ -22,10 +22,11 @@ class SolarViewModel(
 
     fun getLiveData() = liveData
 
-    fun getSolarFlareDataFromServer(date: Date) {
-        val dateString = dateFormatter.format(date)
+    fun getSolarFlareDataFromServer(startDate: Date, endDate: Date) {
+        val startString = dateFormatter.format(startDate)
+        val endString = dateFormatter.format(endDate)
         liveData.value = SolarDataSate.Loading(0)
-        retrofitImpl.getRetrofitImpl().getSolarFlareData("2021-11-01", "2021-12-20").enqueue(callback)
+        retrofitImpl.getRetrofitImpl().getSolarFlareData(startString, endString).enqueue(callback)
     }
 
     private val callback = object: Callback<List<SolarFlareResponseData>>{
@@ -42,6 +43,5 @@ class SolarViewModel(
         override fun onFailure(call: Call<List<SolarFlareResponseData>>, t: Throwable) {
             liveData.value = SolarDataSate.Error(t)
         }
-
     }
 }

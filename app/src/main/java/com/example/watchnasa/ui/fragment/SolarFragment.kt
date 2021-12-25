@@ -1,21 +1,24 @@
 package com.example.watchnasa.ui.fragment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SimpleAdapter
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
+import com.example.watchnasa.ui.MainActivity
 import com.example.watchnasa.viewmodel.SolarDataSate
 import com.example.watchnasa.viewmodel.SolarViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -30,6 +33,9 @@ class SolarFragment : Fragment() {
     private val binding: FragmentSolarBinding
         get() = _binding!!
 
+    private var startDate = Date(MaterialDatePicker.thisMonthInUtcMilliseconds())
+    private var endDate = Date(MaterialDatePicker.todayInUtcMilliseconds())
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,10 +47,44 @@ class SolarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        appbarInit()
+        showDateRange()
         val observer = Observer<SolarDataSate> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getSolarFlareDataFromServer(Date())
+        viewModel.getSolarFlareDataFromServer(startDate, endDate)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_planets_tool_bar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_calendar -> {
+                val dateRangePicker = MaterialDatePicker.Builder
+                    .dateRangePicker()
+                    .setTitleText("Select date range")
+                    .setSelection(
+                        Pair(
+                            MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                            MaterialDatePicker.todayInUtcMilliseconds()
+                        )
+                    )
+                    .build()
+                dateRangePicker.addOnPositiveButtonClickListener {
+                    dateRangePicker.selection?.let {
+                        startDate = Date(dateRangePicker.selection!!.first)
+                        endDate = Date(dateRangePicker.selection!!.second)
+                        viewModel.getSolarFlareDataFromServer(startDate, endDate)
+                        showDateRange()
+                    }
+                }
+                dateRangePicker.show(parentFragmentManager, "")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
@@ -61,9 +101,16 @@ class SolarFragment : Fragment() {
             }
             is SolarDataSate.Error -> {
                 solarProgressBar.visibility = View.GONE
-                showErrorDialog()
+                showWarningDialog()
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
+    private fun showDateRange() = with(binding) {
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
+        solarDateRangeTextView.text =
+            "${dateFormatter.format(startDate)} - ${dateFormatter.format(endDate)}"
     }
 
     private fun showSolarData(solarData: List<SolarFlareResponseData>) = with(binding) {
@@ -96,7 +143,13 @@ class SolarFragment : Fragment() {
         )
         // создаем и передаем адаптер для ListView
         val adapter =
-            SimpleAdapter(requireContext(), adapterList, R.layout.item_solar_flare_data, from, to)
+            SimpleAdapter(
+                requireContext(),
+                adapterList,
+                R.layout.item_solar_flare_data,
+                from,
+                to
+            )
         solarDataListView.adapter = adapter
         // обрабатываем нажатие на элемент списка
         solarDataListView.setOnItemClickListener { _, _, position, _ ->
@@ -107,13 +160,18 @@ class SolarFragment : Fragment() {
         }
     }
 
-    // метод отображения диалога с ошибкой загрузки контента
-    private fun showErrorDialog() {
+    private fun appbarInit() {
+        val context = context as MainActivity
+        context.setSupportActionBar(binding.marsToolBar)
+        setHasOptionsMenu(true)
+    }
+
+    private fun showWarningDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.loading_error)
-            .setIcon(R.drawable.ic_baseline_error_24)
-            .setPositiveButton(R.string.retry) { _, _ -> viewModel.getSolarFlareDataFromServer(Date()) }
-            .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+            .setTitle(R.string.no_data_for_selected_period)
+            .setMessage(R.string.choose_another_selected_period)
+            .setIcon(R.drawable.ic_baseline_warning_24)
+            .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
     }
