@@ -57,7 +57,7 @@
     <!--chipGroup-->
     <style name="MyChipGroupStyle" parent="Widget.MaterialComponents.ChipGroup">
         <item name="singleSelection">true</item>
-        <item name="chipSpacingHorizontal">16dp</item>
+        <item name="chipSpacingHorizontal">12dp</item>
     </style>
 
     <!--chip-->

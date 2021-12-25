@@ -31,4 +31,9 @@
     <string name="region">Source Region: </string>
     <string name="solar_flare">Solar Flare Data</string>
     <string name="sun">Sun</string>
+    <string name="calendar">Calendar</string>
+    <string name="rover_name">"Rover Name:"</string>
+    <string name="earth_date">"Earth Date:"</string>
+    <string name="camera_type">"Camera Type:"</string>
+    <string name="nearest_date_message">Photo of nearest date is found!</string>
 </resources>

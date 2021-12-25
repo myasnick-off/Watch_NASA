@@ -1,11 +1,11 @@
 package com.example.watchnasa.ui.fragment
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.MediaController
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -55,7 +55,7 @@ class APODFragment : Fragment() {
 
         val observer = Observer<ApodState> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getAPODFromServer(Date())
+        viewModel.getAPODFromServer(0)
 
         // обработчик кнопки Википедии, открывает браузер с запросом на сайт Википедии
         wikiTextInputLayout.setEndIconOnClickListener {
@@ -83,18 +83,26 @@ class APODFragment : Fragment() {
         // при выборе одного из чипов загружаем соответсвующую картинку дня
         apodChipGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.before_yesterday_chip -> {
-                    val beforeYesterday = Date(Date().time - MSEC_IN_DAY * 2)
-                    viewModel.getAPODFromServer(beforeYesterday)
-                }
-                R.id.yesterday_chip -> {
-                    val yesterday = Date(Date().time - MSEC_IN_DAY)
-                    viewModel.getAPODFromServer(yesterday)
-                }
-                R.id.today_chip -> {
-                    viewModel.getAPODFromServer(Date())
-                }
+                R.id.before_yesterday_chip -> viewModel.getAPODFromServer(2)
+                R.id.yesterday_chip -> viewModel.getAPODFromServer(1)
+                R.id.today_chip -> viewModel.getAPODFromServer(0)
             }
+        }
+
+        // обработчик нажатия на кнопку календаря
+        apodCalendarButton.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            apodChipGroup.clearCheck()
+            DatePickerDialog(
+                requireContext(),
+                { _, year, month, day ->
+                    calendar.set(year, month, day)
+                    viewModel.getAPODByDateFromServer(calendar.time)
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
         // управление кнопкой fab, кнопками BottomAppbar и состоянием BottomSheet
@@ -190,7 +198,7 @@ class APODFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.loading_error)
             .setIcon(R.drawable.ic_baseline_error_24)
-            .setPositiveButton(R.string.retry) { _, _ -> viewModel.getAPODFromServer(Date()) }
+            .setPositiveButton(R.string.retry) { _, _ -> viewModel.getAPODFromServer(0) }
             .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
             .create()
             .show()

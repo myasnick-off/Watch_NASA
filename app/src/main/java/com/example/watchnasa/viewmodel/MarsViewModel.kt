@@ -24,7 +24,7 @@ class MarsViewModel(
     fun getMarsPhotoFromServer(date: Date) {
         val dateString = dateFormatter.format(date)
         liveData.value = MarsDataState.Loading(0)
-        retrofitImpl.getRetrofitImpl().getMarsRoverPhotos("2021-12-20", null).enqueue(callback)
+        retrofitImpl.getRetrofitImpl().getMarsRoverPhotos(dateString, null).enqueue(callback)
     }
 
     private val callback = object: Callback<MarsResponseData> {

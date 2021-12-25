@@ -21,7 +21,13 @@ class ApodViewModel(
 
     fun getLiveData() = liveData
 
-    fun getAPODFromServer(date: Date) {
+    fun getAPODFromServer(daysBefore: Int) {
+        val dateString = getDateString(daysBefore)
+        liveData.value = ApodState.Loading(0)
+        retrofitImpl.getRetrofitImpl().getAstronomyPictureOfTheDay(dateString).enqueue(callback)
+    }
+
+    fun getAPODByDateFromServer(date: Date) {
         val dateString = dateFormatter.format(date)
         liveData.value = ApodState.Loading(0)
         retrofitImpl.getRetrofitImpl().getAstronomyPictureOfTheDay(dateString).enqueue(callback)
@@ -42,6 +48,12 @@ class ApodViewModel(
         override fun onFailure(call: Call<ApodResponseData>, t: Throwable) {
             liveData.value = ApodState.Error(t)
         }
+    }
 
+    @SuppressLint("SimpleDateFormat")
+    private fun getDateString(daysBefore: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, daysBefore * (-1))
+        return dateFormatter.format(calendar.time)
     }
 }

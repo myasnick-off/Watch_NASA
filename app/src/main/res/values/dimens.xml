@@ -16,4 +16,6 @@
     <dimen name="radius_10">10dp</dimen>
     <dimen name="height_160">160dp</dimen>
     <dimen name="width_270">270dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
 </resources>
