@@ -1,4 +1,4 @@
-package com.example.watchnasa.repository
+package com.example.watchnasa.repository.dto
 
 import com.google.gson.annotations.SerializedName
 

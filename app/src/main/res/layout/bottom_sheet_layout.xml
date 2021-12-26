@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?colorOnPrimary"
-    app:behavior_peekHeight="@dimen/peek_height_120"
+    app:behavior_peekHeight="@dimen/peek_height_24"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <View

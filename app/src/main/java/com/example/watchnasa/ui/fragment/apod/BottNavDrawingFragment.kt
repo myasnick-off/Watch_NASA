@@ -1,4 +1,4 @@
-package com.example.watchnasa.ui
+package com.example.watchnasa.ui.fragment.apod
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.BottomNavigationLayoutBinding
+import com.example.watchnasa.ui.fragment.settings.SettingsFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottNavDrawingFragment: BottomSheetDialogFragment() {
@@ -30,13 +31,17 @@ class BottNavDrawingFragment: BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
-                R.id.action_favorite -> {
-                    Toast.makeText(context, R.string.favorite, Toast.LENGTH_SHORT).show()
+                R.id.action_settings -> {
+                    // запускаем фрагмент с настройками
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.container, SettingsFragment.newInstance(), "")
+                        .commit()
                 }
                 R.id.action_info -> {
                     Toast.makeText(context, R.string.info, Toast.LENGTH_SHORT).show()
                 }
             }
+            dismiss()
             true
         }
     }

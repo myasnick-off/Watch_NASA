@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/solar_data_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/radius_10"
+    android:layout_margin="@dimen/margin_4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_8">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/photo_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            tools:text="@string/earth_photo_description"
+            android:textSize="@dimen/text_18" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/photo_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_4"
+            tools:text="@string/date"
+            android:textSize="@dimen/text_16" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

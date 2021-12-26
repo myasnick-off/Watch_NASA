@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.watchnasa.R
-
-const val MOON_THEME = 0
-const val MARS_THEME = 1
-const val SPACE_THEME = 2
+import com.example.watchnasa.ui.fragment.apod.APODFragment
 
 private const val KEY_PREF = "app_settings"
 private const val KEY_THEME = "current_theme"
@@ -28,8 +25,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // обработка события по нажатию системной кнопки "Назад"
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.container)
+        if (fragment is BackPressedMonitor) {
+            // проверяем если нажатие кнопки "Назад" во фрагменте,
+                // унаследованном от BackPressedMonitor вернуло false,
+                // то отдаем обработку кнопки системной "Назад" активити
+            if (!fragment.onBackPressed()) {
+                super.onBackPressed()
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     // метод сохранения выбранной темы в настройках приложения
-    fun setNewTheme(themeId: Int) {
+    fun setSelectedTheme(themeId: Int) {
         val sharedPref = getSharedPreferences(KEY_PREF, MODE_PRIVATE)
         sharedPref.edit().apply {
             putInt(KEY_THEME, themeId)
@@ -41,5 +53,9 @@ class MainActivity : AppCompatActivity() {
     fun getSavedTheme(): Int {
         val sharedPref = getSharedPreferences(KEY_PREF, MODE_PRIVATE)
         return sharedPref.getInt(KEY_THEME, -1)
+    }
+
+    companion object {
+        fun newInstance() = MainActivity()
     }
 }

@@ -1,6 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme -->
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--chipGroup-->
+        <item name="chipGroupStyle">@style/MyChipGroupStyle</item>
+        <!--chip-->
+        <item name="chipStyle">@style/MyChipStyle</item>
+        <!--bottomNavigation-->
+        <item name="bottomNavigationStyle">@style/MyBottomNavStyle</item>
+    </style>
+
     <!--    Moon theme-->
-    <style name="MoonStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="MoonStyle" parent="BaseAppTheme">
         <!-- Primary color. -->
         <item name="colorPrimary">@color/color_gray_medium</item>
         <item name="colorPrimaryVariant">@color/color_gray_dark</item>
@@ -9,16 +22,12 @@
         <item name="colorSecondary">@color/color_moon_light</item>
         <item name="colorSecondaryVariant">@color/color_moon_medium</item>
         <item name="colorOnSecondary">@color/color_moon_dark</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--fonts-->
         <item name="fontFamily">@font/jura_light</item>
-        <!--chipGroup-->
-        <item name="chipGroupStyle">@style/MyChipGroupStyle</item>
     </style>
 
     <!--    Mars theme-->
-    <style name="MarsStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="MarsStyle" parent="BaseAppTheme">
         <!-- Primary color. -->
         <item name="colorPrimary">@color/color_brown_medium</item>
         <item name="colorPrimaryVariant">@color/color_brown_dark</item>
@@ -27,16 +36,12 @@
         <item name="colorSecondary">@color/color_red_light</item>
         <item name="colorSecondaryVariant">@color/color_red_medium</item>
         <item name="colorOnSecondary">@color/color_red_dark</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--fonts-->
         <item name="fontFamily">@font/open_sans_light</item>
-        <!--chipGroup-->
-        <item name="chipGroupStyle">@style/MyChipGroupStyle</item>
     </style>
 
     <!--    Deep space theme-->
-    <style name="SpaceStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="SpaceStyle" parent="BaseAppTheme">
         <!-- Primary color. -->
         <item name="colorPrimary">@color/color_medium</item>
         <item name="colorPrimaryVariant">@color/color_dark</item>
@@ -45,16 +50,40 @@
         <item name="colorSecondary">@color/color_blue_light</item>
         <item name="colorSecondaryVariant">@color/color_blue_medium</item>
         <item name="colorOnSecondary">@color/color_blue_dark</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--fonts-->
         <item name="fontFamily">@font/sarpanch</item>
-        <!--chipGroup-->
-        <item name="chipGroupStyle">@style/MyChipGroupStyle</item>
     </style>
 
+    <!--chipGroup-->
     <style name="MyChipGroupStyle" parent="Widget.MaterialComponents.ChipGroup">
         <item name="singleSelection">true</item>
-        <item name="chipSpacingHorizontal">16dp</item>
+        <item name="chipSpacingHorizontal">12dp</item>
+    </style>
+
+    <!--chip-->
+    <style name="MyChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.Chip</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Chip</item>
+        <item name="android:textColor">@color/chip_txt_selector_color</item>
+
+    </style>
+
+    <!--bottomNavigation-->
+    <style name="MyBottomNavStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="itemBackground">@color/bot_nav_selector_color</item>
+        <item name="itemTextColor">@color/bot_nav_txt_selector_color</item>
+        <item name="itemIconTint">@color/bot_nav_txt_selector_color</item>
+    </style>
+
+    <!--Переопрделяем цвета для chip-->
+    <style name="ThemeOverlay.App.Chip" parent="">
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurface">?colorSecondary</item>
+    </style>
+
+    <!--Переопрделяем формы для chip-->
+    <style name="ShapeAppearanceOverlay.App.Chip" parent="">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">10dp</item>
     </style>
 </resources>

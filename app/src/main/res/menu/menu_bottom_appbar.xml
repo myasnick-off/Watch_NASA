@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/action_planets_photo"
+        android:title="@string/planets_photo"
+        android:icon="@drawable/ic_telescope"
         app:showAsAction="ifRoom" />
 
 </menu>

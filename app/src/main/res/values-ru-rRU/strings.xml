@@ -16,4 +16,23 @@
     <string name="yesterday">Вчера</string>
     <string name="today">Сегодня</string>
     <string name="choose_app_theme">"Выберите тему приложения: "</string>
+    <string name="planets_photo">Фото планет</string>
+    <string name="earth">Земля</string>
+    <string name="mars">Марс</string>
+    <string name="solar">Солнечные вспышки</string>
+    <string name="start_time">"Начало: "</string>
+    <string name="peak_time">"Пик: "</string>
+    <string name="end_time">"Окончание: "</string>
+    <string name="intensity">"Интерсивность: "</string>
+    <string name="region">"Область источника: "</string>
+    <string name="solar_flare">Солнечные вспышки</string>
+    <string name="sun">Солнце</string>
+    <string name="calendar">Календаль</string>
+    <string name="rover_name">Аппарат:</string>
+    <string name="earth_date">Земная дата:</string>
+    <string name="camera_type">Камера:</string>
+    <string name="nearest_date_message">Найдено фото ближайшей даты!</string>
+    <string name="date_range">Дата начала - Дата кончания</string>
+    <string name="no_data_for_selected_period">Данные за выбранный период отсутствуют!</string>
+    <string name="choose_another_selected_period">Пожалуйста, выберите другой период!</string>
 </resources>
