@@ -3,117 +3,135 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/padding_4">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/wiki_text_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_8"
-            android:hint="@string/wiki_search"
-            app:counterEnabled="true"
-            app:counterMaxLength="200"
-            app:endIconCheckable="true"
-            app:endIconDrawable="@drawable/ic_wikipedia"
-            app:endIconMode="custom"
-            app:helperText="@string/wiki_search_helper"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/wiki_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/apod_calendar_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_8"
-            android:backgroundTint="?colorOnSecondary"
-            android:src="@drawable/ic_baseline_calendar_month_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wiki_text_input_layout" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/apod_chip_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/apod_calendar_button"
-            app:layout_constraintTop_toBottomOf="@+id/wiki_text_input_layout">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/before_yesterday_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/before_yesterday" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/yesterday_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/yesterday" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/today_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/today" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <FrameLayout
-            android:id="@+id/apod_image_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_450"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apod_chip_group">
-
-            <com.example.watchnasa.utils.SquareImageView
-                android:id="@+id/apod_image_view"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/wiki_text_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_baseline_wallpaper_96" />
+                android:layout_margin="@dimen/margin_8"
+                android:hint="@string/wiki_search"
+                app:counterEnabled="true"
+                app:counterMaxLength="200"
+                app:endIconCheckable="true"
+                app:endIconDrawable="@drawable/ic_wikipedia"
+                app:endIconMode="custom"
+                app:helperText="@string/wiki_search_helper"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/wiki_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/apod_guide_lane"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.20" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/apod_video_button"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="@dimen/width_270"
-                android:layout_height="@dimen/height_160"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/youtube_logo"
-                android:visibility="gone"
-                tools:visibility="visible" />
-        </FrameLayout>
+                android:id="@+id/apod_calendar_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:backgroundTint="?colorOnSecondary"
+                android:src="@drawable/ic_baseline_calendar_month_24"
+                app:layout_constraintBottom_toTopOf="@id/apod_guide_lane"
+                app:layout_constraintEnd_toStartOf="@+id/apod_chip_group"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wiki_text_input_layout" />
 
-        <ProgressBar
-            android:id="@+id/apod_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/apod_chip_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                app:layout_constraintBottom_toTopOf="@id/apod_guide_lane"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/apod_calendar_button"
+                app:layout_constraintTop_toBottomOf="@+id/wiki_text_input_layout">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/before_yesterday_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/before_yesterday" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/yesterday_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yesterday" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/today_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/today" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <FrameLayout
+                android:id="@+id/apod_image_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/apod_guide_lane">
+
+                <com.example.watchnasa.utils.SquareImageView
+                    android:id="@+id/apod_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_baseline_wallpaper_96" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/apod_video_button"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="@dimen/width_270"
+                    android:layout_height="@dimen/height_160"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/youtube_logo"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+            </FrameLayout>
+
+            <ProgressBar
+                android:id="@+id/apod_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <include
         android:id="@+id/bottom_sheet"

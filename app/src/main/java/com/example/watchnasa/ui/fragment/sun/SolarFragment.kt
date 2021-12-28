@@ -65,7 +65,7 @@ class SolarFragment : Fragment() {
             R.id.action_calendar -> {
                 val dateRangePicker = MaterialDatePicker.Builder
                     .dateRangePicker()
-                    .setTitleText("Select date range")
+                    .setTitleText(R.string.select_date_range)
                     .setSelection(
                         Pair(
                             MaterialDatePicker.thisMonthInUtcMilliseconds(),

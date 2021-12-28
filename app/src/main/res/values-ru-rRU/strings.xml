@@ -35,4 +35,5 @@
     <string name="date_range">Дата начала - Дата кончания</string>
     <string name="no_data_for_selected_period">Данные за выбранный период отсутствуют!</string>
     <string name="choose_another_selected_period">Пожалуйста, выберите другой период!</string>
+    <string name="select_date_range">Укажите период</string>
 </resources>
