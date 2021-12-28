@@ -36,7 +36,7 @@
     <string name="earth_date">"Earth Date:"</string>
     <string name="camera_type">"Camera Type:"</string>
     <string name="nearest_date_message">Photo of nearest date is found!</string>
-    <string name="date_range">start date - end date</string>
+    <string name="date_range">Period:</string>
     <string name="no_data_for_selected_period">No data for selected period!</string>
     <string name="choose_another_selected_period">Please, choose another date range!</string>
     <string name="ok" translatable="false">OK</string>

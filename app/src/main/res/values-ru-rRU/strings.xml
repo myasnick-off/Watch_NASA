@@ -32,7 +32,7 @@
     <string name="earth_date">Земная дата:</string>
     <string name="camera_type">Камера:</string>
     <string name="nearest_date_message">Найдено фото ближайшей даты!</string>
-    <string name="date_range">Дата начала - Дата кончания</string>
+    <string name="date_range">Период:</string>
     <string name="no_data_for_selected_period">Данные за выбранный период отсутствуют!</string>
     <string name="choose_another_selected_period">Пожалуйста, выберите другой период!</string>
     <string name="select_date_range">Укажите период</string>

@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
-import com.example.watchnasa.ui.MainActivity
 import com.example.watchnasa.viewmodel.SolarDataSate
 import com.example.watchnasa.viewmodel.SolarViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -47,44 +46,33 @@ class SolarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appbarInit()
         showDateRange()
         val observer = Observer<SolarDataSate> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getSolarFlareDataFromServer(startDate, endDate)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.clear()
-        inflater.inflate(R.menu.menu_planets_tool_bar, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_calendar -> {
-                val dateRangePicker = MaterialDatePicker.Builder
-                    .dateRangePicker()
-                    .setTitleText(R.string.select_date_range)
-                    .setSelection(
-                        Pair(
-                            MaterialDatePicker.thisMonthInUtcMilliseconds(),
-                            MaterialDatePicker.todayInUtcMilliseconds()
-                        )
+        // открываем календарь при нажатии на кнопку FAB
+        binding.solarFab.setOnClickListener {
+            val dateRangePicker = MaterialDatePicker.Builder
+                .dateRangePicker()
+                .setTitleText(R.string.select_date_range)
+                .setSelection(
+                    Pair(
+                        MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                        MaterialDatePicker.todayInUtcMilliseconds()
                     )
-                    .build()
-                dateRangePicker.addOnPositiveButtonClickListener {
-                    dateRangePicker.selection?.let {
-                        startDate = Date(dateRangePicker.selection!!.first)
-                        endDate = Date(dateRangePicker.selection!!.second)
-                        viewModel.getSolarFlareDataFromServer(startDate, endDate)
-                        showDateRange()
-                    }
+                )
+                .build()
+            dateRangePicker.addOnPositiveButtonClickListener {
+                dateRangePicker.selection?.let {
+                    startDate = Date(dateRangePicker.selection!!.first)
+                    endDate = Date(dateRangePicker.selection!!.second)
+                    viewModel.getSolarFlareDataFromServer(startDate, endDate)
+                    showDateRange()
                 }
-                dateRangePicker.show(parentFragmentManager, "")
             }
+            dateRangePicker.show(parentFragmentManager, "")
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
@@ -110,7 +98,7 @@ class SolarFragment : Fragment() {
     private fun showDateRange() = with(binding) {
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
         solarDateRangeTextView.text =
-            "${dateFormatter.format(startDate)} - ${dateFormatter.format(endDate)}"
+            "${getString(R.string.date_range)} ${dateFormatter.format(startDate)} - ${dateFormatter.format(endDate)}"
     }
 
     private fun showSolarData(solarData: List<SolarFlareResponseData>) = with(binding) {
@@ -158,12 +146,6 @@ class SolarFragment : Fragment() {
                 data = Uri.parse(solarData[position].link)
             })
         }
-    }
-
-    private fun appbarInit() {
-        val context = context as MainActivity
-        context.setSupportActionBar(binding.marsToolBar)
-        setHasOptionsMenu(true)
     }
 
     private fun showWarningDialog() {
