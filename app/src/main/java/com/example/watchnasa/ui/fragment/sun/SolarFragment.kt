@@ -3,7 +3,6 @@ package com.example.watchnasa.ui.fragment.sun
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -16,6 +15,8 @@ import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
+import com.example.watchnasa.utils.hide
+import com.example.watchnasa.utils.show
 import com.example.watchnasa.viewmodel.SolarDataSate
 import com.example.watchnasa.viewmodel.SolarViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -61,8 +62,6 @@ class SolarFragment : Fragment() {
         solarFab.setOnClickListener {
             showCalendarDialog()
         }
-
-        //TODO("добавить SwipeDismissBehavior")
     }
 
     override fun onDestroy() {
@@ -72,13 +71,13 @@ class SolarFragment : Fragment() {
 
     private fun renderData(dataSate: SolarDataSate) = with(binding) {
         when (dataSate) {
-            is SolarDataSate.Loading -> solarProgressBar.visibility = View.VISIBLE
+            is SolarDataSate.Loading -> solarProgressBar.show()
             is SolarDataSate.Success -> {
                 showSolarData(dataSate.solarData)
-                solarProgressBar.visibility = View.GONE
+                solarProgressBar.hide()
             }
             is SolarDataSate.Error -> {
-                solarProgressBar.visibility = View.GONE
+                solarProgressBar.hide()
                 showWarningDialog()
             }
         }

@@ -1,6 +1,5 @@
 package com.example.watchnasa.ui.fragment.apod
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +16,9 @@ import com.example.watchnasa.databinding.FragmentApodBinding
 import com.example.watchnasa.repository.dto.ApodResponseData
 import com.example.watchnasa.ui.MainActivity
 import com.example.watchnasa.ui.fragment.PlanetsNavigationFragment
+import com.example.watchnasa.utils.hide
+import com.example.watchnasa.utils.show
+import com.example.watchnasa.utils.showErrorDialog
 import com.example.watchnasa.viewmodel.ApodState
 import com.example.watchnasa.viewmodel.ApodViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -155,15 +157,15 @@ class APODFragment : Fragment() {
     private fun renderData(apodState: ApodState) = with(binding) {
         when (apodState) {
             is ApodState.Loading -> {
-                apodProgressBar.visibility = View.VISIBLE
+                apodProgressBar.show()
             }
             is ApodState.Success -> {
-                apodProgressBar.visibility = View.GONE
+                apodProgressBar.hide()
                 showData(apodState.apodData)
             }
             is ApodState.Error -> {
-                apodProgressBar.visibility = View.GONE
-                showErrorDialog()
+                apodProgressBar.hide()
+                showErrorDialog(requireContext()) { _, _ -> viewModel.getAPODFromServer(0) }
             }
         }
     }
@@ -192,17 +194,6 @@ class APODFragment : Fragment() {
         val behavior = BottomSheetBehavior.from(bottomSheet.bottomSheetContainer)
         behavior.halfExpandedRatio = 0.25f
         behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-    }
-
-    // метод отображения диалога с ошибкой загрузки контента
-    private fun showErrorDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle(R.string.loading_error)
-            .setIcon(R.drawable.ic_baseline_error_24)
-            .setPositiveButton(R.string.retry) { _, _ -> viewModel.getAPODFromServer(0) }
-            .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-            .create()
-            .show()
     }
 
     // двигаем кнопку fab враво и меняем кнопки меню

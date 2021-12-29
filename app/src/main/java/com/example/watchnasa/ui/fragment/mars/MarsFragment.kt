@@ -1,6 +1,5 @@
 package com.example.watchnasa.ui.fragment.mars
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
@@ -16,6 +15,9 @@ import com.example.watchnasa.ui.KEY_ROVER_ICON
 import com.example.watchnasa.ui.KEY_PREF
 import com.example.watchnasa.ui.KEY_ROVER_NAME
 import com.example.watchnasa.ui.MainActivity
+import com.example.watchnasa.utils.hide
+import com.example.watchnasa.utils.show
+import com.example.watchnasa.utils.showErrorDialog
 import com.example.watchnasa.viewmodel.MarsDataState
 import com.example.watchnasa.viewmodel.MarsViewModel
 import com.google.android.material.tabs.TabLayout
@@ -75,9 +77,7 @@ class MarsFragment : Fragment() {
     // по нажатию кнопки меню запускаем календарь для выбора даты интересующих фото
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_calendar -> {
-                showCalendarDialog()
-            }
+            R.id.action_calendar -> showCalendarDialog()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -89,14 +89,15 @@ class MarsFragment : Fragment() {
 
     private fun renderData(state: MarsDataState) = with(binding) {
         when (state) {
-            is MarsDataState.Loading -> marsProgressBar.visibility = View.VISIBLE
+            is MarsDataState.Loading -> marsProgressBar.show()
             is MarsDataState.Success -> {
                 handleDataFromServer(state.marsData)
-                marsProgressBar.visibility = View.GONE
+                marsProgressBar.hide()
             }
             is MarsDataState.Error -> {
-                marsProgressBar.visibility = View.GONE
-                showErrorDialog()
+                marsProgressBar.hide()
+                showErrorDialog(requireContext())
+                { _, _ -> viewModel.getMarsPhotoFromServer(getSavedRoverName(), calendar.time) }
             }
         }
     }
@@ -149,17 +150,6 @@ class MarsFragment : Fragment() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         ).show()
-    }
-
-    // метод отображения диалога с ошибкой загрузки контента
-    private fun showErrorDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle(R.string.loading_error)
-            .setIcon(R.drawable.ic_baseline_error_24)
-            .setPositiveButton(R.string.retry) { _, _ -> viewModel.getMarsPhotoFromServer(getSavedRoverName(), calendar.time) }
-            .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-            .create()
-            .show()
     }
 
     private fun roverDataInit() = with(binding) {
