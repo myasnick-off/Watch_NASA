@@ -43,4 +43,7 @@
     <string name="earth_photo_description" translatable="false">Earth photo description</string>
     <string name="date" translatable="false">date</string>
     <string name="select_date_range">Select date range</string>
+    <string name="rover_spirit" translatable="false">spirit</string>
+    <string name="rover_opportunity" translatable="false">opportunity</string>
+    <string name="rover_curiosity" translatable="false">curiosity</string>
 </resources>

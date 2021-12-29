@@ -47,14 +47,6 @@
         app:srcCompat="@drawable/ic_baseline_calendar_month_24"
         app:layout_behavior=".ui.fragment.sun.SolarBehavior"/>
 
-    <ProgressBar
-        android:id="@+id/solar_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/solar_date_range_text_view"
             android:layout_width="wrap_content"
@@ -76,5 +68,13 @@
         android:dividerHeight="@dimen/margin_8"
         android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <ProgressBar
+        android:id="@+id/solar_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

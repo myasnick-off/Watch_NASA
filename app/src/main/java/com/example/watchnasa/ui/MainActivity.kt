@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.watchnasa.R
 import com.example.watchnasa.ui.fragment.apod.APODFragment
 
-private const val KEY_PREF = "app_settings"
-private const val KEY_THEME = "current_theme"
+const val KEY_PREF = "app_settings"
+const val KEY_THEME = "current_theme"
+const val KEY_ROVER_ICON = "current_rover_icon"
+const val KEY_ROVER_NAME = "current_rover_name"
 
 class MainActivity : AppCompatActivity() {
 

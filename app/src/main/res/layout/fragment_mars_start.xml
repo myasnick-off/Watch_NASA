@@ -19,10 +19,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layoutDescription="@xml/mars_motion_scene">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mars_tab_layout"
@@ -59,16 +60,47 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.98"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/mars_rover_choose_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_rover1"
-        app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
-        app:layout_constraintEnd_toStartOf="@id/mars_v_guideline"
-        android:contentDescription="@string/rover_name" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mars_rover_curiosity_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rover_curiosity"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
+            app:layout_constraintEnd_toStartOf="@id/mars_v_guideline"
+            android:contentDescription="@string/rover_curiosity" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mars_rover_opportunity_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rover_opportunity"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
+            app:layout_constraintEnd_toStartOf="@id/mars_v_guideline"
+            android:contentDescription="@string/rover_opportunity" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mars_rover_spirit_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rover_spirit"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
+            app:layout_constraintEnd_toStartOf="@id/mars_v_guideline"
+            android:contentDescription="@string/rover_spirit" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mars_rover_choose_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
+            app:layout_constraintEnd_toStartOf="@id/mars_v_guideline"
+            android:contentDescription="@string/rover_name" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
     <ProgressBar

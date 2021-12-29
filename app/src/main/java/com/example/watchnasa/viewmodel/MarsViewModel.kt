@@ -3,6 +3,7 @@ package com.example.watchnasa.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.watchnasa.R
 import com.example.watchnasa.repository.RetrofitImpl
 import com.example.watchnasa.repository.dto.MarsResponseData
 import retrofit2.Call
@@ -21,10 +22,20 @@ class MarsViewModel(
 
     fun getLiveData() = liveData
 
-    fun getMarsPhotoFromServer(date: Date) {
+    fun getMarsPhotoFromServer(roverNameId: Int, date: Date) {
         val dateString = dateFormatter.format(date)
         liveData.value = MarsDataState.Loading(0)
-        retrofitImpl.getRetrofitImpl().getMarsRoverPhotos(dateString, null).enqueue(callback)
+        when(roverNameId) {
+            R.string.rover_opportunity -> {
+                retrofitImpl.getRetrofitImpl().getRoverOpportunityPhotos(dateString, null).enqueue(callback)
+            }
+            R.string.rover_spirit -> {
+                retrofitImpl.getRetrofitImpl().getRoverSpiritPhotos(dateString, null).enqueue(callback)
+            }
+            else -> {
+                retrofitImpl.getRetrofitImpl().getRoverCuriosityPhotos(dateString, null).enqueue(callback)
+            }
+        }
     }
 
     private val callback = object: Callback<MarsResponseData> {

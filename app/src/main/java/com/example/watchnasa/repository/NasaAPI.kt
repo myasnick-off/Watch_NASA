@@ -27,10 +27,26 @@ interface NasaAPI {
 
     // запрос на получение фото с камер аппарата Curiosity
     @GET("mars-photos/api/v1/rovers/curiosity/photos")
-    fun getMarsRoverPhotos(
+    fun getRoverCuriosityPhotos(
         @Query("earth_date") date: String,
         @Query("camera") camera: String?,
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY
+        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
+    ): Call<MarsResponseData>
+
+    // запрос на получение фото с камер аппарата Opportunity
+    @GET("mars-photos/api/v1/rovers/opportunity/photos")
+    fun getRoverOpportunityPhotos(
+        @Query("earth_date") date: String,
+        @Query("camera") camera: String?,
+        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
+    ): Call<MarsResponseData>
+
+    // запрос на получение фото с камер аппарата Spirit
+    @GET("mars-photos/api/v1/rovers/spirit/photos")
+    fun getRoverSpiritPhotos(
+        @Query("earth_date") date: String,
+        @Query("camera") camera: String?,
+        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
     ): Call<MarsResponseData>
 
     // запрос на получение данных о солнечных вспышках за период
