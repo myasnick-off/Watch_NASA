@@ -173,16 +173,16 @@ class APODFragment : Fragment() {
     // метод вывода данных, полученных с сервера, на экран
     private fun showData(apodData: ApodResponseData) = with(binding) {
         if (apodData.mediaType == "image") {
-            apodImageView.visibility = View.VISIBLE
-            apodVideoButton.visibility = View.GONE
+            apodImageView.show()
+            apodVideoButton.hide()
             apodImageView.load(apodData.url) {
                 lifecycle(this@APODFragment)
                 error(R.drawable.ic_baseline_broken_image_96)
                 placeholder(R.drawable.ic_baseline_wallpaper_96)
             }
         } else {
-            apodImageView.visibility = View.GONE
-            apodVideoButton.visibility = View.VISIBLE
+            apodImageView.hide()
+            apodVideoButton.show()
             apodVideoButton.setOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(apodData.url)
@@ -217,9 +217,6 @@ class APODFragment : Fragment() {
 
 
     companion object {
-
-        private const val MSEC_IN_DAY = 86400000
-
         fun newInstance() = APODFragment()
     }
 }

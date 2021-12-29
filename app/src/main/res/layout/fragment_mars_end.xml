@@ -68,8 +68,8 @@
             android:contentDescription="@string/rover_curiosity"
             android:src="@drawable/ic_rover_curiosity"
             app:layout_constraintCircle="@id/mars_rover_choose_fab"
-            app:layout_constraintCircleAngle="270"
-            app:layout_constraintCircleRadius="100dp" />
+            app:layout_constraintCircleAngle="@integer/angle_270"
+            app:layout_constraintCircleRadius="@dimen/radius_100" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mars_rover_opportunity_fab"
@@ -78,8 +78,8 @@
             android:contentDescription="@string/rover_opportunity"
             android:src="@drawable/ic_rover_opportunity"
             app:layout_constraintCircle="@id/mars_rover_choose_fab"
-            app:layout_constraintCircleAngle="315"
-            app:layout_constraintCircleRadius="100dp" />
+            app:layout_constraintCircleAngle="@integer/angle_315"
+            app:layout_constraintCircleRadius="@dimen/radius_100" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mars_rover_spirit_fab"
@@ -88,8 +88,8 @@
             android:contentDescription="@string/rover_spirit"
             android:src="@drawable/ic_rover_spirit"
             app:layout_constraintCircle="@id/mars_rover_choose_fab"
-            app:layout_constraintCircleAngle="360"
-            app:layout_constraintCircleRadius="100dp" />
+            app:layout_constraintCircleAngle="@integer/angle_360"
+            app:layout_constraintCircleRadius="@dimen/radius_100" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mars_rover_choose_fab"

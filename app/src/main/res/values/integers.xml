@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="angle_270">270</integer>
+    <integer name="angle_315">315</integer>
+    <integer name="angle_360">360</integer>
+</resources>
