@@ -3,6 +3,7 @@ package com.example.watchnasa.ui.fragment.sun
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -11,6 +12,7 @@ import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
@@ -44,35 +46,23 @@ class SolarFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
+        // выводим временной период выборки на экран
         showDateRange()
+        // загружаем картинку в toolbar
+        solarAppbarImage.load("https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001117/GSFC_20171208_Archive_e001117~orig.jpg")
+
         val observer = Observer<SolarDataSate> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getSolarFlareDataFromServer(startDate, endDate)
 
         // открываем календарь при нажатии на кнопку FAB
-        binding.solarFab.setOnClickListener {
-            val dateRangePicker = MaterialDatePicker.Builder
-                .dateRangePicker()
-                .setTitleText(R.string.select_date_range)
-                .setSelection(
-                    Pair(
-                        MaterialDatePicker.thisMonthInUtcMilliseconds(),
-                        MaterialDatePicker.todayInUtcMilliseconds()
-                    )
-                )
-                .build()
-            dateRangePicker.addOnPositiveButtonClickListener {
-                dateRangePicker.selection?.let {
-                    startDate = Date(dateRangePicker.selection!!.first)
-                    endDate = Date(dateRangePicker.selection!!.second)
-                    viewModel.getSolarFlareDataFromServer(startDate, endDate)
-                    showDateRange()
-                }
-            }
-            dateRangePicker.show(parentFragmentManager, "")
+        solarFab.setOnClickListener {
+            showCalendarDialog()
         }
+
+        //TODO("добавить SwipeDismissBehavior")
     }
 
     override fun onDestroy() {
@@ -100,6 +90,29 @@ class SolarFragment : Fragment() {
         solarDateRangeTextView.text =
             "${getString(R.string.date_range)} ${dateFormatter.format(startDate)} - ${dateFormatter.format(endDate)}"
     }
+
+    private fun showCalendarDialog() {
+        val dateRangePicker = MaterialDatePicker.Builder
+            .dateRangePicker()
+            .setTitleText(R.string.select_date_range)
+            .setSelection(
+                Pair(
+                    MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                    MaterialDatePicker.todayInUtcMilliseconds()
+                )
+            )
+            .build()
+        dateRangePicker.addOnPositiveButtonClickListener {
+            dateRangePicker.selection?.let {
+                startDate = Date(dateRangePicker.selection!!.first)
+                endDate = Date(dateRangePicker.selection!!.second)
+                viewModel.getSolarFlareDataFromServer(startDate, endDate)
+                showDateRange()
+            }
+        }
+        dateRangePicker.show(parentFragmentManager, "")
+    }
+
 
     private fun showSolarData(solarData: List<SolarFlareResponseData>) = with(binding) {
         // упаковываем данные о солнечной вспышке в понятную для ListView-адаптера структуру

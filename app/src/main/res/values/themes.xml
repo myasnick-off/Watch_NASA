@@ -65,10 +65,6 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.Chip</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Chip</item>
         <item name="android:textColor">@color/chip_txt_selector_color</item>
-
-    </style>
-    <style name="Toolbar.MyTitleStyle" parent="@style/Base.TextAppearance.AppCompat.Title">
-        <item name="android:textSize">16sp</item>
     </style>
 
     <!--bottomNavigation-->
