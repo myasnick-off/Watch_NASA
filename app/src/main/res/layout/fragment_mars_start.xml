@@ -19,10 +19,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mars_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/mars_motion_scene"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.tabs.TabLayout
@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/rover_curiosity"
             android:src="@drawable/ic_rover_curiosity"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
             app:layout_constraintEnd_toStartOf="@id/mars_v_guideline" />
 
@@ -76,6 +77,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/rover_opportunity"
             android:src="@drawable/ic_rover_opportunity"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
             app:layout_constraintEnd_toStartOf="@id/mars_v_guideline" />
 
@@ -85,6 +87,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/rover_spirit"
             android:src="@drawable/ic_rover_spirit"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
             app:layout_constraintEnd_toStartOf="@id/mars_v_guideline" />
 
@@ -96,7 +99,7 @@
             app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
             app:layout_constraintEnd_toStartOf="@id/mars_v_guideline" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <ProgressBar

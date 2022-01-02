@@ -10,6 +10,8 @@
         <item name="chipStyle">@style/MyChipStyle</item>
         <!--bottomNavigation-->
         <item name="bottomNavigationStyle">@style/MyBottomNavStyle</item>
+        <!--floatingActionButton-->
+        <item name="floatingActionButtonStyle">@style/MyFabStyle</item>
     </style>
 
     <!--    Moon theme-->
@@ -72,6 +74,11 @@
         <item name="itemBackground">@color/bot_nav_selector_color</item>
         <item name="itemTextColor">@color/bot_nav_txt_selector_color</item>
         <item name="itemIconTint">@color/bot_nav_txt_selector_color</item>
+    </style>
+
+    <!--floatingActionButton-->
+    <style name="MyFabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">?colorSecondary</item>
     </style>
 
     <!--Переопрделяем цвета для chip-->

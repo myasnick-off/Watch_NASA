@@ -24,4 +24,5 @@
     <dimen name="height_180">180dp</dimen>
     <dimen name="margin_18">18dp</dimen>
     <dimen name="radius_100">100dp</dimen>
+    <dimen name="radius_0">0dp</dimen>
 </resources>

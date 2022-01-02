@@ -16,6 +16,7 @@ import coil.load
 import com.example.watchnasa.BuildConfig
 import com.example.watchnasa.databinding.FragmentEarthBinding
 import com.example.watchnasa.repository.dto.EpicResponseData
+import com.example.watchnasa.utils.DURATION_500
 import com.example.watchnasa.utils.hide
 import com.example.watchnasa.utils.show
 import com.example.watchnasa.utils.showErrorDialog
@@ -52,13 +53,11 @@ class EarthFragment : Fragment() {
         // задаем анимацию (увеличение фото и скрытие описания) по нажатию на изображение
         earthPhotoView.setOnClickListener {
             isZoomed = !isZoomed
-            val cbTransition = ChangeBounds().apply { duration = 500 }
-            val imageTransition = ChangeImageTransform().apply { duration = 500 }
-            val fadeTransition = Fade().apply { duration = 500 }
             val transitionSet = TransitionSet().apply {
-                addTransition(cbTransition)
-                addTransition(imageTransition)
-                addTransition(fadeTransition)
+                addTransition(ChangeBounds())
+                addTransition(ChangeImageTransform())
+                addTransition(Fade())
+                duration = DURATION_500
             }
             TransitionManager.beginDelayedTransition(earthContainer, transitionSet)
             // приводим параметры картинки к праметрам контейнера, чтобы добраться до ее высоты
@@ -73,6 +72,7 @@ class EarthFragment : Fragment() {
                 earthPhotoView.scaleType = ImageView.ScaleType.FIT_CENTER
                 earthDataCard.root.show()
             }
+            earthPhotoView.layoutParams = params
         }
     }
 
