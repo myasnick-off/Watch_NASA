@@ -20,4 +20,8 @@
     <dimen name="margin_20">20dp</dimen>
     <dimen name="text_16">16sp</dimen>
     <dimen name="height_8">8dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="height_180">180dp</dimen>
+    <dimen name="margin_18">18dp</dimen>
+    <dimen name="radius_100">100dp</dimen>
 </resources>

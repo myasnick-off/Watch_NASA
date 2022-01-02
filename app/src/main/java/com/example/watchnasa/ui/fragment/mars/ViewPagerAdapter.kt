@@ -4,14 +4,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.watchnasa.repository.dto.RoverResponseData
+import com.example.watchnasa.repository.dto.PhotoResponseData
 
 // адаптер для ViewPager
 // кроме необходимых параметров в конструктор передаем список с фотоданными марса за выбранную дату
 class ViewPagerAdapter(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
-    private val photoDataList: List<RoverResponseData>
+    private val photoDataList: List<PhotoResponseData>
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount() = photoDataList.size

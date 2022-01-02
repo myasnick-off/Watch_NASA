@@ -1,6 +1,5 @@
 package com.example.watchnasa.ui.fragment.earth
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.watchnasa.BuildConfig
-import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentEarthBinding
 import com.example.watchnasa.repository.dto.EpicResponseData
+import com.example.watchnasa.utils.hide
+import com.example.watchnasa.utils.show
+import com.example.watchnasa.utils.showErrorDialog
 import com.example.watchnasa.viewmodel.EpicState
 import com.example.watchnasa.viewmodel.EpicViewModel
 
@@ -49,14 +50,14 @@ class EarthFragment : Fragment() {
 
     private fun renderData(state: EpicState) = with(binding) {
         when (state) {
-            is EpicState.Loading -> earthProgressBar.visibility = View.VISIBLE
+            is EpicState.Loading -> earthProgressBar.show()
             is EpicState.Success -> {
                 showData(state.epicData)
-                earthProgressBar.visibility = View.GONE
+                earthProgressBar.hide()
             }
             is EpicState.Error -> {
-                earthProgressBar.visibility = View.GONE
-                showErrorDialog()
+                earthProgressBar.hide()
+                showErrorDialog(requireContext()) { _, _ -> viewModel.getEpicImageFromServer() }
             }
         }
     }
@@ -73,17 +74,6 @@ class EarthFragment : Fragment() {
             .replace("-", "/")
             .substringBefore(" ", "")
         return "https://api.nasa.gov/EPIC/archive/natural/${imageDate}/png/${imageName}?api_key=${BuildConfig.NASA_API_KEY}"
-    }
-
-    // метод отображения диалога с ошибкой загрузки контента
-    private fun showErrorDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle(R.string.loading_error)
-            .setIcon(R.drawable.ic_baseline_error_24)
-            .setPositiveButton(R.string.retry) { _, _ -> viewModel.getEpicImageFromServer() }
-            .setNeutralButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-            .create()
-            .show()
     }
 
     companion object {
