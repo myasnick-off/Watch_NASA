@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/solar_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -10,7 +11,8 @@
         android:id="@+id/solar_app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_180"
-        android:background='?colorPrimaryVariant'>
+        android:background='?colorPrimaryVariant'
+        android:stateListAnimator="@animator/animator_toolbar_elevation">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/solar_col_tool_bar"
@@ -64,7 +66,6 @@
         android:id="@+id/solar_data_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_20"
         android:dividerHeight="@dimen/margin_8"
         android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

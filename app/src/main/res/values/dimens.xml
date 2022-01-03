@@ -25,4 +25,5 @@
     <dimen name="margin_18">18dp</dimen>
     <dimen name="radius_100">100dp</dimen>
     <dimen name="radius_0">0dp</dimen>
+    <dimen name="elevate_12">12dp</dimen>
 </resources>
