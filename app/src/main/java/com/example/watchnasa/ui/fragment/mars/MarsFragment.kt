@@ -75,37 +75,47 @@ class MarsFragment : Fragment() {
         marsRoverChooseFab.setOnClickListener {
             isChooseFabPressed = true
             animateRoverButtons()
+            animatePhotoData(0.7f)
         }
 
         // обработчик нажатия на кнопку марсохода Curiosity
         marsRoverCuriosityFab.setOnClickListener {
             isChooseFabPressed = false
             animateRoverButtons()
-            applyRoverChanges(R.drawable.ic_rover_curiosity, R.string.rover_curiosity)
+            animatePhotoData()
+            if (getSavedRoverName() != R.string.rover_curiosity) {
+                applyRoverChanges(R.drawable.ic_rover_curiosity, R.string.rover_curiosity)
+            }
         }
 
         // обработчик нажатия на кнопку марсохода Opportunity
         marsRoverOpportunityFab.setOnClickListener {
             isChooseFabPressed = false
             animateRoverButtons()
-            applyRoverChanges(R.drawable.ic_rover_opportunity, R.string.rover_opportunity)
+            animatePhotoData()
+            if (getSavedRoverName() != R.string.rover_opportunity) {
+                applyRoverChanges(R.drawable.ic_rover_opportunity, R.string.rover_opportunity)
+            }
         }
 
         // обработчик нажатия на кнопку марсохода Spirit
         marsRoverSpiritFab.setOnClickListener {
             isChooseFabPressed = false
             animateRoverButtons()
-            applyRoverChanges(R.drawable.ic_rover_spirit, R.string.rover_spirit)
-        }
-
-        // обработчик нажатия на любое пространство фрагмента для сброса выбора марсохода
-        root.setOnClickListener {
-            if(isChooseFabPressed) {
-                isChooseFabPressed = false
-                animateRoverButtons()
+            animatePhotoData()
+            if (getSavedRoverName() != R.string.rover_spirit) {
+                applyRoverChanges(R.drawable.ic_rover_spirit, R.string.rover_spirit)
             }
         }
 
+        // обработчик нажатия на любое пространство фрагмента для сброса выбора марсохода
+        marsFrameLayout.setOnClickListener {
+            if(isChooseFabPressed) {
+                isChooseFabPressed = false
+                animateRoverButtons()
+                animatePhotoData()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -192,7 +202,6 @@ class MarsFragment : Fragment() {
         ).show()
     }
 
-    @SuppressLint("ResourceAsColor")
     private fun roverDataInit() = with(binding) {
         // загружаем иконку выбранного ранее марсохода, меняем цвет кнопки, а также инициализируем дату
         val roverIconId = getSavedRoverIcon()
@@ -257,6 +266,15 @@ class MarsFragment : Fragment() {
             // для марсохода curiosity подойдет сегодняшняя дата
             else -> calendar = Calendar.getInstance()
         }
+    }
+
+    // метод анимации (затенения и обратно) фотоданных при нажатии на кнопку выбора марсохода
+    private fun animatePhotoData(alfa: Float = 0f) = with(binding) {
+        if (isChooseFabPressed) marsFrameLayout.show()
+        if (!isChooseFabPressed) marsFrameLayout.hide()
+        marsFrameLayout.animate()
+            .alpha(alfa)
+            .setDuration(DURATION_500)
     }
 
     // метод анамированного отображения/скрытия FUB-кнопок марсоходов
