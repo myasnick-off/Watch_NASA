@@ -56,6 +56,7 @@ class PlanetsNavigationFragment: Fragment() {
 
     private fun launchFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.scale_in, R.anim.slide_vertical_out)
             .replace(R.id.planet_container, fragment, "")
             .commit()
     }

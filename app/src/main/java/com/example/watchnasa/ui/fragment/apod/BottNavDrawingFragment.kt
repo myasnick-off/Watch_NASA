@@ -34,6 +34,7 @@ class BottNavDrawingFragment: BottomSheetDialogFragment() {
                 R.id.action_settings -> {
                     // запускаем фрагмент с настройками
                     parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.container, SettingsFragment.newInstance(), "")
                         .commit()
                 }

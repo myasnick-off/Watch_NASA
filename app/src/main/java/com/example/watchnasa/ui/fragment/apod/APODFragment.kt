@@ -130,6 +130,7 @@ class APODFragment : Fragment() {
         when (item.itemId) {
             R.id.action_planets_photo -> {
                 parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.slide_horizontal_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_horizontal_out)
                     .add(R.id.container, PlanetsNavigationFragment.newInstance(), "")
                     .addToBackStack("PlanetsNavigationFragment")
                     .commit()
