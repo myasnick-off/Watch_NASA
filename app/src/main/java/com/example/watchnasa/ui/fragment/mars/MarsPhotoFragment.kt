@@ -3,11 +3,17 @@ package com.example.watchnasa.ui.fragment.mars
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.transition.*
 import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentMarsPhotoBinding
 import com.example.watchnasa.repository.dto.PhotoResponseData
+import com.example.watchnasa.utils.DURATION_500
+import com.example.watchnasa.utils.hide
+import com.example.watchnasa.utils.show
 import kotlin.collections.ArrayList
 
 class MarsPhotoFragment : Fragment() {
@@ -18,6 +24,7 @@ class MarsPhotoFragment : Fragment() {
 
     private var position = 0
     private var photoDataList: List<PhotoResponseData> = listOf()
+    private var isZoomed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +44,33 @@ class MarsPhotoFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         showData()
+
+        // задаем анимацию (увеличение фото и скрытие описания) по нажатию на изображение
+        marsPhotoView.setOnClickListener{
+            isZoomed = !isZoomed
+            val transitionSet = TransitionSet().apply {
+                addTransition(ChangeBounds())
+                addTransition(ChangeImageTransform())
+                addTransition(Fade())
+                duration = DURATION_500
+            }
+            TransitionManager.beginDelayedTransition(marsDataContainer, transitionSet)
+            val params = marsPhotoView.layoutParams as ConstraintLayout.LayoutParams
+            if (isZoomed) {
+                params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
+                marsPhotoView.scaleType = ImageView.ScaleType.CENTER_CROP
+                marsDataCard.root.hide()
+            } else {
+                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                marsPhotoView.scaleType = ImageView.ScaleType.FIT_CENTER
+                marsDataCard.root.show()
+            }
+            marsPhotoView.layoutParams = params
+        }
+
     }
 
     override fun onDestroy() {

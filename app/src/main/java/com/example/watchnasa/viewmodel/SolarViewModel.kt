@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.watchnasa.repository.RetrofitImpl
-import com.example.watchnasa.repository.dto.MarsResponseData
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +14,7 @@ import java.util.*
 class SolarViewModel(
     private val retrofitImpl: RetrofitImpl = RetrofitImpl(),
     private val liveData: MutableLiveData<SolarDataSate> = MutableLiveData()
-): ViewModel() {
+) : ViewModel() {
 
     @SuppressLint("SimpleDateFormat")
     private val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
@@ -29,7 +28,7 @@ class SolarViewModel(
         retrofitImpl.getRetrofitImpl().getSolarFlareData(startString, endString).enqueue(callback)
     }
 
-    private val callback = object: Callback<List<SolarFlareResponseData>>{
+    private val callback = object : Callback<List<SolarFlareResponseData>> {
         override fun onResponse(
             call: Call<List<SolarFlareResponseData>>,
             response: Response<List<SolarFlareResponseData>>
@@ -43,5 +42,14 @@ class SolarViewModel(
         override fun onFailure(call: Call<List<SolarFlareResponseData>>, t: Throwable) {
             liveData.value = SolarDataSate.Error(t)
         }
+    }
+
+    // метод создания списка-заглушки с данными на случай неполадок на сервере
+    private fun getMocData(): List<SolarFlareResponseData> {
+        val mocData: ArrayList<SolarFlareResponseData> = arrayListOf()
+        for (i in 0..9) {
+            mocData.add(SolarFlareResponseData("$i", "", "", "", "", "", ""))
+        }
+        return mocData
     }
 }

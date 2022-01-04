@@ -4,17 +4,24 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import androidx.transition.ChangeBounds
 import android.view.*
 import android.widget.SimpleAdapter
+import androidx.annotation.RequiresApi
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.util.Pair
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionManager
 import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
+import com.example.watchnasa.utils.DURATION_500
 import com.example.watchnasa.utils.hide
 import com.example.watchnasa.utils.show
 import com.example.watchnasa.viewmodel.SolarDataSate
@@ -47,6 +54,7 @@ class SolarFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         // выводим временной период выборки на экран
@@ -61,6 +69,23 @@ class SolarFragment : Fragment() {
         // открываем календарь при нажатии на кнопку FAB
         solarFab.setOnClickListener {
             showCalendarDialog()
+        }
+
+        // анимация при скроллинге ListView
+        solarDataListView.setOnScrollChangeListener { _, _, _, _, _ ->
+            val params = solarDataListView.layoutParams as CoordinatorLayout.LayoutParams
+            // постепенно убираем верхний отступ у ListView при его скроллинге вниз
+            if (solarDataListView.canScrollVertically(+1) && params.topMargin >= 0) {
+                params.topMargin -= 2
+                solarDataListView.layoutParams = params
+            }
+            // возвращаем верхний отступ у ListView при завершении скролинга вверх
+            if (!solarDataListView.canScrollVertically(-1)) {
+                params.topMargin = 60
+                solarDataListView.layoutParams = params
+            }
+            // добавляем тень у AppBar, когда элеиенты ListView при скроллинге заезжают под него
+            solarAppBar.isSelected = solarDataListView.canScrollVertically(-1)
         }
     }
 
@@ -87,7 +112,11 @@ class SolarFragment : Fragment() {
     private fun showDateRange() = with(binding) {
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
         solarDateRangeTextView.text =
-            "${getString(R.string.date_range)} ${dateFormatter.format(startDate)} - ${dateFormatter.format(endDate)}"
+            "${getString(R.string.date_range)} ${dateFormatter.format(startDate)} - ${
+                dateFormatter.format(
+                    endDate
+                )
+            }"
     }
 
     private fun showCalendarDialog() {

@@ -6,6 +6,8 @@ import android.content.DialogInterface
 import android.view.View
 import com.example.watchnasa.R
 
+const val DURATION_500 = 500L
+
 // метод отображения View-компонента
 fun View.show(): View {
     if (visibility != View.VISIBLE)
