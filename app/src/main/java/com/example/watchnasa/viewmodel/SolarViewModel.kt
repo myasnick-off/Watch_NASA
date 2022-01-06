@@ -10,6 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class SolarViewModel(
     private val retrofitImpl: RetrofitImpl = RetrofitImpl(),
@@ -34,7 +35,8 @@ class SolarViewModel(
             response: Response<List<SolarFlareResponseData>>
         ) {
             if (response.isSuccessful && response.body() != null) {
-                liveData.value = SolarDataSate.Success(response.body()!!)
+                val data = addTimeTitlesToList(response.body()!!)
+                liveData.value = SolarDataSate.Success(data)
             } else {
                 liveData.value = SolarDataSate.Error(Throwable("Unsuccessful or empty response!"))
             }
@@ -42,6 +44,22 @@ class SolarViewModel(
         override fun onFailure(call: Call<List<SolarFlareResponseData>>, t: Throwable) {
             liveData.value = SolarDataSate.Error(t)
         }
+    }
+
+    // метод добавления в список с данными о солнечных вспышках элементов-заголовков с датами начала вспышек
+    private fun addTimeTitlesToList(list: List<SolarFlareResponseData>): List<SolarFlareResponseData> {
+        val result: ArrayList<SolarFlareResponseData> = arrayListOf()
+        var timeTitle = list[0].beginTime.substringBefore('T')
+        result.add(SolarFlareResponseData(beginTime = timeTitle))
+
+        for (i in list.indices) {
+            if (list[i].beginTime.substringBefore('T') != timeTitle) {
+                timeTitle = list[i].beginTime.substringBefore('T')
+                result.add(SolarFlareResponseData(beginTime = timeTitle))
+            }
+            result.add(list[i])
+        }
+        return result
     }
 
     // метод создания списка-заглушки с данными на случай неполадок на сервере
