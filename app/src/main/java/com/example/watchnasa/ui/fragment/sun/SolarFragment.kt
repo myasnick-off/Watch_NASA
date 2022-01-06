@@ -9,10 +9,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SimpleAdapter
 import androidx.annotation.RequiresApi
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -137,15 +135,14 @@ class SolarFragment : Fragment() {
 
     private fun showSolarData(solarData: List<SolarFlareResponseData>) = with(binding) {
 
-        solarDataRecyclerView.adapter = SolarRecyclerAdapter(solarData)
-
-        // обрабатываем нажатие на элемент списка
-//        solarDataListView.setOnItemClickListener { _, _, position, _ ->
-//            // открываем сайт с более подробной информацией по ссылке из solarData
-//            startActivity(Intent(Intent.ACTION_VIEW).apply {
-//                data = Uri.parse(solarData[position].link)
-//            })
-//        }
+        val itemClickListener = object : SolarItemClickListener {
+            override fun onItemClicked(itemPosition: Int) {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(solarData[itemPosition].link)
+                })
+            }
+        }
+        solarDataRecyclerView.adapter = SolarRecyclerAdapter(solarData, itemClickListener)
     }
 
     private fun showWarningDialog() {
@@ -156,6 +153,10 @@ class SolarFragment : Fragment() {
             .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
+    }
+
+    interface SolarItemClickListener {
+        fun onItemClicked(itemPosition: Int)
     }
 
     companion object {

@@ -13,18 +13,30 @@ import com.example.watchnasa.repository.dto.SolarFlareResponseData
 private const val TITLE_TYPE = 0
 private const val DATA_TYPE = 1
 
-class SolarRecyclerAdapter(private val solarData: List<SolarFlareResponseData>) :
+class SolarRecyclerAdapter(
+    private val solarData: List<SolarFlareResponseData>,
+    private val itemListener: SolarFragment.SolarItemClickListener
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-       return if (viewType == DATA_TYPE) {
+        return if (viewType == DATA_TYPE) {
             val bindingViewHolder =
-                ItemSolarFlareDataBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-             SolarViewHolder(bindingViewHolder.root)
+                ItemSolarFlareDataBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            SolarViewHolder(bindingViewHolder.root)
         } else {
-           val bindingViewHolder =
-               ItemSolarFlareTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-           TitleViewHolder(bindingViewHolder.root)
-       }
+            val bindingViewHolder =
+                ItemSolarFlareTitleBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            TitleViewHolder(bindingViewHolder.root)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -44,7 +56,7 @@ class SolarRecyclerAdapter(private val solarData: List<SolarFlareResponseData>) 
 
     override fun getItemCount() = solarData.size
 
-    class SolarViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class SolarViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         @SuppressLint("SetTextI18n")
         fun bind(data: SolarFlareResponseData) {
@@ -55,6 +67,10 @@ class SolarRecyclerAdapter(private val solarData: List<SolarFlareResponseData>) 
                 endTimeTextView.text = "${context.getString(R.string.end_time)} ${data.endTime}"
                 intensityTextView.text = "${context.getString(R.string.intensity)} ${data.classType}"
                 regionTextView.text = "${context.getString(R.string.region)} ${data.sourceLocation}"
+
+                itemView.setOnClickListener {
+                    itemListener.onItemClicked(layoutPosition)
+                }
             }
         }
     }
