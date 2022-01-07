@@ -65,18 +65,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/solar_data_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-<!--    <ListView-->
-<!--        android:id="@+id/solar_data_list_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:dividerHeight="@dimen/margin_8"-->
-<!--        android:nestedScrollingEnabled="true"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/solar_add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:contentDescription="@string/add_data"
+        app:layout_anchor="@id/solar_data_recycler_view"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_baseline_add_48" />
 
     <ProgressBar
         android:id="@+id/solar_progress_bar"

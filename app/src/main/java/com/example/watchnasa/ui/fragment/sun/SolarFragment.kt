@@ -21,6 +21,8 @@ import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
 import com.example.watchnasa.utils.hide
 import com.example.watchnasa.utils.show
+import com.example.watchnasa.viewmodel.ADD_KEY
+import com.example.watchnasa.viewmodel.SET_KEY
 import com.example.watchnasa.viewmodel.SolarDataSate
 import com.example.watchnasa.viewmodel.SolarViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -55,15 +57,19 @@ class SolarFragment : Fragment() {
         // выводим временной период выборки на экран
         showDateRange()
         // загружаем картинку в toolbar
-        solarAppbarImage.load("https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001117/GSFC_20171208_Archive_e001117~orig.jpg")
+        solarAppbarImage.load(getString(R.string.image_url))
 
         val observer = Observer<SolarDataSate> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
-        viewModel.getSolarFlareDataFromServer(startDate, endDate)
+        viewModel.getSolarFlareDataFromServer(startDate, endDate, SET_KEY)
 
         // открываем календарь при нажатии на кнопку FAB
         solarFab.setOnClickListener {
-            showCalendarDialog()
+            showCalendarDialog(SET_KEY)
+        }
+
+        solarAddFab.setOnClickListener {
+            showCalendarDialog(ADD_KEY)
         }
 
         // анимация при скроллинге ListView
@@ -110,7 +116,7 @@ class SolarFragment : Fragment() {
             "${getString(R.string.date_range)} ${dateFormatter.format(startDate)} - ${dateFormatter.format(endDate)}"
     }
 
-    private fun showCalendarDialog() {
+    private fun showCalendarDialog(actionKey: Int) {
         val dateRangePicker = MaterialDatePicker.Builder
             .dateRangePicker()
             .setTitleText(R.string.select_date_range)
@@ -125,16 +131,16 @@ class SolarFragment : Fragment() {
             dateRangePicker.selection?.let {
                 startDate = Date(dateRangePicker.selection!!.first)
                 endDate = Date(dateRangePicker.selection!!.second)
-                viewModel.getSolarFlareDataFromServer(startDate, endDate)
+                viewModel.getSolarFlareDataFromServer(startDate, endDate, actionKey)
                 showDateRange()
             }
         }
         dateRangePicker.show(parentFragmentManager, "")
     }
 
-
     private fun showSolarData(solarData: List<SolarFlareResponseData>) = with(binding) {
 
+        // реализуем listener для элементов RecyclerView
         val itemClickListener = object : SolarItemClickListener {
             override fun onItemClicked(itemPosition: Int) {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -142,7 +148,9 @@ class SolarFragment : Fragment() {
                 })
             }
         }
-        solarDataRecyclerView.adapter = SolarRecyclerAdapter(solarData, itemClickListener)
+        // создаем и присваиваем адаптер для RecyclerView
+        val adapter = SolarRecyclerAdapter(solarData as MutableList, itemClickListener)
+        solarDataRecyclerView.adapter = adapter
     }
 
     private fun showWarningDialog() {

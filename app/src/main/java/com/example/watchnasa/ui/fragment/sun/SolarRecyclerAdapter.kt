@@ -14,27 +14,19 @@ private const val TITLE_TYPE = 0
 private const val DATA_TYPE = 1
 
 class SolarRecyclerAdapter(
-    private val solarData: List<SolarFlareResponseData>,
+    private val solarData: MutableList<SolarFlareResponseData>,
     private val itemListener: SolarFragment.SolarItemClickListener
 ) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<SolarViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SolarViewHolder {
         return if (viewType == DATA_TYPE) {
             val bindingViewHolder =
-                ItemSolarFlareDataBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            SolarViewHolder(bindingViewHolder.root)
+                ItemSolarFlareDataBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            DataViewHolder(bindingViewHolder.root)
         } else {
             val bindingViewHolder =
-                ItemSolarFlareTitleBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+                ItemSolarFlareTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             TitleViewHolder(bindingViewHolder.root)
         }
     }
@@ -46,20 +38,16 @@ class SolarRecyclerAdapter(
         return DATA_TYPE
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == DATA_TYPE) {
-            (holder as SolarViewHolder).bind(solarData[position])
-        } else {
-            (holder as TitleViewHolder).bind(solarData[position])
-        }
+    override fun onBindViewHolder(holder: SolarViewHolder, position: Int) {
+        holder.bind(solarData[position])
     }
 
     override fun getItemCount() = solarData.size
 
-    inner class SolarViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class DataViewHolder(view: View) : SolarViewHolder(view) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(data: SolarFlareResponseData) {
+        override fun bind(data: SolarFlareResponseData) {
             ItemSolarFlareDataBinding.bind(itemView).apply {
                 val context = itemView.context
                 startTimeTextView.text = "${context.getString(R.string.start_time)} ${data.beginTime}"
@@ -71,13 +59,18 @@ class SolarRecyclerAdapter(
                 itemView.setOnClickListener {
                     itemListener.onItemClicked(layoutPosition)
                 }
+
+                solarItemRemoveButton.setOnClickListener {
+                    solarData.removeAt(layoutPosition)
+                    notifyDataSetChanged()
+                }
             }
         }
     }
 
-    class TitleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class TitleViewHolder(view: View) : SolarViewHolder(view) {
 
-        fun bind(data: SolarFlareResponseData) {
+        override fun bind(data: SolarFlareResponseData) {
             ItemSolarFlareTitleBinding.bind(itemView).apply {
                 timeTitleTextView.text = data.beginTime
             }

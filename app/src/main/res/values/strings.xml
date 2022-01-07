@@ -46,4 +46,6 @@
     <string name="rover_spirit" translatable="false">spirit</string>
     <string name="rover_opportunity" translatable="false">opportunity</string>
     <string name="rover_curiosity" translatable="false">curiosity</string>
+    <string name="add_data" translatable="false">add data</string>
+    <string name="image_url" translatable="false">https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001117/GSFC_20171208_Archive_e001117~orig.jpg</string>
 </resources>
