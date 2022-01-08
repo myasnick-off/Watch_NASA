@@ -4,8 +4,8 @@
     android:id="@+id/solar_data_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/radius_10"
-    android:layout_margin="@dimen/margin_4">
+    android:layout_margin="@dimen/margin_4"
+    app:cardCornerRadius="@dimen/radius_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,56 +16,56 @@
             android:id="@+id/start_time_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             android:text="@string/start_time"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/peak_time_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            app:layout_constraintTop_toBottomOf="@id/start_time_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             android:text="@string/peak_time"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/start_time_text_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/end_time_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            app:layout_constraintTop_toBottomOf="@id/peak_time_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             android:text="@string/end_time"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/peak_time_text_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/intensity_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            app:layout_constraintTop_toBottomOf="@id/end_time_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             android:text="@string/intensity"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/end_time_text_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/region_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="start"
             android:layout_marginTop="@dimen/margin_4"
-            app:layout_constraintTop_toBottomOf="@id/intensity_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            android:gravity="start"
             android:text="@string/region"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/intensity_text_view" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/solar_item_barrier"
@@ -75,15 +75,34 @@
             app:constraint_referenced_ids="solar_item_remove_button" />
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/solar_item_up_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/width_50"
+            android:layout_height="@dimen/height_30"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+            app:layout_constraintBottom_toTopOf="@+id/solar_item_remove_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/solar_item_remove_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="@dimen/width_50"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_remove_circle_outline_24"
+            app:layout_constraintBottom_toTopOf="@id/solar_item_down_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/solar_item_up_button" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/solar_item_down_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/width_50"
+            android:layout_height="@dimen/height_30"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/solar_item_remove_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
