@@ -15,6 +15,7 @@ import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
@@ -41,6 +42,7 @@ class SolarFragment : Fragment() {
 
     private var startDate = Date(MaterialDatePicker.thisMonthInUtcMilliseconds())
     private var endDate = Date(MaterialDatePicker.todayInUtcMilliseconds())
+    private lateinit var adapter: SolarRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +64,11 @@ class SolarFragment : Fragment() {
         val observer = Observer<SolarDataSate> { renderData(it) }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getSolarFlareDataFromServer(startDate, endDate, SET_KEY)
+
+        // создаем и присваиваем адаптер для RecyclerView
+        adapter = SolarRecyclerAdapter()
+        solarDataRecyclerView.adapter = adapter
+        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(solarDataRecyclerView)
 
         // открываем календарь при нажатии на кнопку FAB
         solarFab.setOnClickListener {
@@ -139,7 +146,6 @@ class SolarFragment : Fragment() {
     }
 
     private fun showSolarData(solarData: List<SolarFlareResponseData>) = with(binding) {
-
         // реализуем listener для элементов RecyclerView
         val itemClickListener = object : SolarItemClickListener {
             override fun onItemClicked(itemPosition: Int) {
@@ -148,9 +154,9 @@ class SolarFragment : Fragment() {
                 })
             }
         }
-        // создаем и присваиваем адаптер для RecyclerView
-        val adapter = SolarRecyclerAdapter(solarData as MutableList, itemClickListener)
-        solarDataRecyclerView.adapter = adapter
+        // передаем в адаптер новые список с данными и listener
+        adapter.setData(solarData as MutableList)
+        adapter.setItemListener(itemClickListener)
     }
 
     private fun showWarningDialog() {

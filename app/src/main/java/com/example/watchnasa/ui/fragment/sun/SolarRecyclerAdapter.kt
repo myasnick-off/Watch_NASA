@@ -1,6 +1,7 @@
 package com.example.watchnasa.ui.fragment.sun
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +16,22 @@ import com.example.watchnasa.utils.show
 private const val TITLE_TYPE = 0
 private const val DATA_TYPE = 1
 
-class SolarRecyclerAdapter(
-    private val solarData: MutableList<SolarFlareResponseData>,
-    private val itemListener: SolarFragment.SolarItemClickListener
-) :
-    RecyclerView.Adapter<SolarViewHolder>() {
+class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchHelperAdapter {
+
+    private var solarData: MutableList<SolarFlareResponseData> = mutableListOf()
+    private lateinit var itemListener: SolarFragment.SolarItemClickListener
+
+    // метод передачи списка данных в адаптер
+    fun setData(data: MutableList<SolarFlareResponseData>) {
+        solarData.clear()
+        solarData = data
+        notifyDataSetChanged()
+    }
+
+    // метод передачи listener'а для элементов списка в адаптер
+    fun setItemListener(listener: SolarFragment.SolarItemClickListener) {
+        itemListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SolarViewHolder {
         return if (viewType == DATA_TYPE) {
@@ -46,7 +58,7 @@ class SolarRecyclerAdapter(
 
     override fun getItemCount() = solarData.size
 
-    inner class DataViewHolder(view: View) : SolarViewHolder(view) {
+    inner class DataViewHolder(view: View) : SolarViewHolder(view), ItemTouchHelperViewHolder {
 
         @SuppressLint("SetTextI18n")
         override fun bind(data: SolarFlareResponseData) {
@@ -71,46 +83,61 @@ class SolarRecyclerAdapter(
                 itemView.setOnClickListener {
                     itemListener.onItemClicked(layoutPosition)
                 }
-
                 // инициализируем слушатель при нажатии на кнопку удаления
                 solarItemRemoveButton.setOnClickListener {
                     solarData.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
-
                 // инициализируем слушатель при нажатии на кнпку "Вверх"
                 solarItemUpButton.setOnClickListener {
-                    solarData.removeAt(layoutPosition).apply {
-                        solarData.add(layoutPosition - 1, this)
-                    }
-                    // если элемент будет перемещен на самый верх, скрываем у него кнопку "Вверх"
-                    if (layoutPosition == 1) {
-                        solarItemUpButton.hide()
-                    }
-                    // если наверх перемещается самый последний элемент, отображаем у него кнопку "Вниз"
-                    if (layoutPosition == itemCount - 1) {
-                        solarItemDownButton.show()
-                    }
-                    notifyItemMoved(layoutPosition, layoutPosition - 1)
+                    moveItemUp(this)
                 }
-
                 // инициализируем слушатель при нажатии на кнпку "Вниз"
                 solarItemDownButton.setOnClickListener {
-                    solarData.removeAt(layoutPosition).apply {
-                        solarData.add(layoutPosition + 1, this)
-                    }
-
-                    // если элемент будет перемещен в самый низ, скрываем у него кнопку "Вниз"
-                    if (layoutPosition == itemCount - 2) {
-                        solarItemDownButton.hide()
-                    }
-                    // если вниз перемещается самый верхний элемент, отображаем у него кнопку "Вверх"
-                    if (layoutPosition == 0) {
-                        solarItemUpButton.show()
-                    }
-                    notifyItemMoved(layoutPosition, layoutPosition + 1)
+                    moveItemDown(this)
                 }
             }
+        }
+
+        // метод перемещения элемента списка на одну позицию вверх
+        private fun moveItemUp(binding: ItemSolarFlareDataBinding) {
+            solarData.removeAt(layoutPosition).apply {
+                solarData.add(layoutPosition - 1, this)
+            }
+            // если элемент будет перемещен на самый верх, скрываем у него кнопку "Вверх"
+            if (layoutPosition == 1) {
+                binding.solarItemUpButton.hide()
+            }
+            // если наверх перемещается самый последний элемент, отображаем у него кнопку "Вниз"
+            if (layoutPosition == itemCount - 1) {
+                binding.solarItemDownButton.show()
+            }
+            notifyItemMoved(layoutPosition, layoutPosition - 1)
+        }
+
+        // метод перемещения элемента списка на одну позицию вниз
+        private fun moveItemDown(binding: ItemSolarFlareDataBinding) {
+            solarData.removeAt(layoutPosition).apply {
+                solarData.add(layoutPosition + 1, this)
+            }
+            // если элемент будет перемещен в самый низ, скрываем у него кнопку "Вниз"
+            if (layoutPosition == itemCount - 2) {
+                binding.solarItemDownButton.hide()
+            }
+            // если вниз перемещается самый верхний элемент, отображаем у него кнопку "Вверх"
+            if (layoutPosition == 0) {
+                binding.solarItemUpButton.show()
+            }
+            notifyItemMoved(layoutPosition, layoutPosition + 1)
+        }
+
+        override fun onItemSelected() {
+            itemView.alpha = 0.5f
+        }
+
+        @SuppressLint("ResourceAsColor")
+        override fun onItemCleared() {
+            itemView.alpha = 1f
         }
     }
 
@@ -121,5 +148,17 @@ class SolarRecyclerAdapter(
                 timeTitleTextView.text = data.beginTime
             }
         }
+    }
+
+    override fun onItemMove(from: Int, to: Int) {
+        solarData.removeAt(from).apply {
+            solarData.add(to, this)
+        }
+        notifyItemMoved(from, to)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        solarData.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
