@@ -48,4 +48,7 @@
     <string name="rover_curiosity" translatable="false">curiosity</string>
     <string name="add_data" translatable="false">add data</string>
     <string name="image_url" translatable="false">https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001117/GSFC_20171208_Archive_e001117~orig.jpg</string>
+    <string name="sort_by_intensity_asc">sort by intensity (asc)</string>
+    <string name="sort_by_intensity_dsc">sort by intensity (dsc)</string>
+    <string name="sort_by_date">sort by date</string>
 </resources>

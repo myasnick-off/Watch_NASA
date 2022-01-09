@@ -11,8 +11,11 @@ import com.example.watchnasa.databinding.ItemSolarFlareDataBinding
 import com.example.watchnasa.databinding.ItemSolarFlareTitleBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
 
-private const val TITLE_TYPE = 0
-private const val DATA_TYPE = 1
+private const val TIME_TITLE = "time_title"
+private const val CLASS_TITLE = "class_title"
+private const val TIME_TITLE_TYPE = 0
+private const val CLASS_TITLE_TYPE = 1
+private const val DATA_TYPE = 2
 
 class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchHelperAdapter {
 
@@ -45,10 +48,11 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (solarData[position].flrID == "time_title") {
-            return TITLE_TYPE
+        return when (solarData[position].flrID) {
+            TIME_TITLE -> TIME_TITLE_TYPE
+            CLASS_TITLE -> CLASS_TITLE_TYPE
+            else -> DATA_TYPE
         }
-        return DATA_TYPE
     }
 
     override fun onBindViewHolder(holder: SolarViewHolder, position: Int) {
@@ -172,7 +176,14 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
 
         override fun bind(data: SolarFlareResponseData) {
             ItemSolarFlareTitleBinding.bind(itemView).apply {
-                timeTitleTextView.text = data.beginTime
+                // если элемент списка является заголовком даты в текстовое поле вносим заголовок даты
+                if (getItemViewType(layoutPosition) == TIME_TITLE_TYPE) {
+                    timeTitleTextView.text = data.beginTime
+                }
+                // если элемент списка является заголовком класса в текстовое поле вносим заголовок класса
+                if (getItemViewType(layoutPosition) == CLASS_TITLE_TYPE) {
+                    timeTitleTextView.text = data.classType
+                }
             }
         }
     }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_intensity_asc_sort"
+        android:title="@string/sort_by_intensity_asc"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_intensity_dsc_sort"
+        android:title="@string/sort_by_intensity_dsc"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_date_sort"
+        android:title="@string/sort_by_date"
+        app:showAsAction="never"/>
+</menu>

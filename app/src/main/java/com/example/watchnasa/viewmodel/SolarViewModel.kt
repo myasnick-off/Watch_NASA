@@ -70,16 +70,50 @@ class SolarViewModel(
         data = data.sortedBy { it.flrID } as MutableList
     }
 
+    // метод сортировки по интенсивности вспышки по возрастанию
+    fun sortByIntensityAsc() {
+        val sortedData = data.sortedBy { it.classType }
+        liveData.value = SolarDataSate.Success(addClassTitlesToList(sortedData))
+    }
+
+    // метод сортировки по интенсивности вспышки по убыванию
+    fun sortByIntensityDsc() {
+        val sortedData = data.sortedByDescending { it.classType }
+        liveData.value = SolarDataSate.Success(addClassTitlesToList(sortedData))
+    }
+
+    // мтеод сортировки по дате
+    fun sortByDate() {
+        val sortedData = data.sortedBy { it.flrID }
+        liveData.value = SolarDataSate.Success(addTimeTitlesToList(sortedData))
+    }
+
     // метод добавления в список с данными о солнечных вспышках элементов-заголовков с датами начала вспышек
     private fun addTimeTitlesToList(list: List<SolarFlareResponseData>): MutableList<SolarFlareResponseData> {
         val result: MutableList<SolarFlareResponseData> = arrayListOf()
         var timeTitle = list[0].beginTime.substringBefore('T')
-        result.add(SolarFlareResponseData(beginTime = timeTitle))
+        result.add(SolarFlareResponseData(flrID = "time_title", beginTime = timeTitle))
 
         for (i in list.indices) {
             if (list[i].beginTime.substringBefore('T') != timeTitle) {
                 timeTitle = list[i].beginTime.substringBefore('T')
-                result.add(SolarFlareResponseData(beginTime = timeTitle))
+                result.add(SolarFlareResponseData(flrID = "time_title", beginTime = timeTitle))
+            }
+            result.add(list[i])
+        }
+        return result
+    }
+
+    // метод добавления в список с данными о солнечных вспышках элементов-заголовков с классом интенсивности
+    private fun addClassTitlesToList(list: List<SolarFlareResponseData>): MutableList<SolarFlareResponseData> {
+        val result: MutableList<SolarFlareResponseData> = arrayListOf()
+        var classTitle = list[0].classType.first()
+        result.add(SolarFlareResponseData(flrID = "class_title", classType = "$classTitle class"))
+
+        for (i in list.indices) {
+            if (list[i].classType.first() != classTitle) {
+                classTitle = list[i].classType.first()
+                result.add(SolarFlareResponseData(flrID = "class_title", classType = "$classTitle class"))
             }
             result.add(list[i])
         }

@@ -6,9 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.util.Pair
@@ -20,6 +18,7 @@ import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
+import com.example.watchnasa.ui.MainActivity
 import com.example.watchnasa.utils.hide
 import com.example.watchnasa.utils.show
 import com.example.watchnasa.viewmodel.ADD_KEY
@@ -56,6 +55,7 @@ class SolarFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
+        appbarInit()
         // выводим временной период выборки на экран
         showDateRange()
         // загружаем картинку в toolbar
@@ -97,9 +97,30 @@ class SolarFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_solar_tool_bar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_intensity_asc_sort -> viewModel.sortByIntensityAsc()
+            R.id.action_intensity_dsc_sort -> {viewModel.sortByIntensityDsc()}
+            R.id.action_date_sort -> {viewModel.sortByDate()}
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun appbarInit() {
+        val context = context as MainActivity
+        context.setSupportActionBar(binding.solarToolBar)
+        setHasOptionsMenu(true)
     }
 
     private fun renderData(dataSate: SolarDataSate) = with(binding) {

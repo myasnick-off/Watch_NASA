@@ -1,8 +1,8 @@
 package com.example.watchnasa.repository.dto
 
 data class SolarFlareResponseData(
-    val flrID: String = "time_title",
-    val beginTime: String,
+    val flrID: String = "",
+    val beginTime: String = "",
     val peakTime: String = "",
     val endTime: String = "",
     val classType: String = "",
