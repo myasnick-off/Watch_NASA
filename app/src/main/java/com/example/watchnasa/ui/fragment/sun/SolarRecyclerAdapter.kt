@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.ItemSolarFlareDataBinding
@@ -19,10 +20,11 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
     private lateinit var itemListener: SolarFragment.SolarItemClickListener
 
     // метод передачи списка данных в адаптер
-    fun setData(data: MutableList<SolarFlareResponseData>) {
+    fun setItems(newItems: List<SolarFlareResponseData>) {
+        val result = DiffUtil.calculateDiff(DiffUtilCallback(solarData, newItems))
+        result.dispatchUpdatesTo(this)
         solarData.clear()
-        solarData = data
-        notifyDataSetChanged()
+        solarData.addAll(newItems)
     }
 
     // метод передачи listener'а для элементов списка в адаптер
@@ -53,6 +55,46 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
         holder.bind(solarData[position])
     }
 
+    override fun onBindViewHolder(holder: SolarViewHolder, position: Int, payloads: MutableList<Any>) {
+        // если изменений внутри элементов списка не нашлось (payloads пустой)
+        if (payloads.isEmpty()) {
+            // запускаем обычный onBindViewHolder
+            super.onBindViewHolder(holder, position, payloads)
+        } else {    // иначе применяем изменения
+            // получаем переменную, содержащую самые старые и самые новые данные элемента
+            val combinedChange = createCombinedPayload(payloads as List<Change<SolarFlareResponseData>>)
+            val oldData = combinedChange.oldData
+            val newData = combinedChange.newData
+
+            // если элемент списка относится к TitleViewHolder
+            if (holder is TitleViewHolder) {
+                // сразу обновляем его единственное поле
+                val binding = ItemSolarFlareTitleBinding.bind(holder.itemView)
+                binding.timeTitleTextView.text = newData.beginTime
+            }
+            // если элемент списка относится к DataViewHolder
+            else {
+                // через условия проверяем какое поле элемента изменилось и перезаписываем его
+                val binding = ItemSolarFlareDataBinding.bind(holder.itemView)
+                if (oldData.beginTime != newData.beginTime) {
+                    binding.startTimeTextView.text = newData.beginTime
+                }
+                if (oldData.peakTime != newData.peakTime) {
+                    binding.peakTimeTextView.text = newData.peakTime
+                }
+                if (oldData.endTime != newData.endTime) {
+                    binding.endTimeTextView.text = newData.endTime
+                }
+                if (oldData.classType != newData.classType) {
+                    binding.intensityTextView.text = newData.classType
+                }
+                if (oldData.sourceLocation != newData.sourceLocation) {
+                    binding.regionTextView.text = newData.sourceLocation
+                }
+            }
+        }
+    }
+
     override fun getItemCount() = solarData.size
 
     inner class DataViewHolder(view: View) : SolarViewHolder(view), ItemTouchHelperViewHolder {
@@ -67,14 +109,6 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
                 endTimeTextView.text = "${context.getString(R.string.end_time)} ${data.endTime}"
                 intensityTextView.text = "${context.getString(R.string.intensity)} ${data.classType}"
                 regionTextView.text = "${context.getString(R.string.region)} ${data.sourceLocation}"
-                // если элемент самый верхний в списке, скрываем у него кнопку "Вверх"
-//                if (layoutPosition == 0) {
-//                    solarItemUpButton.hide()
-//                }
-//                // если элемент самый нижний в списке, скрываем у него кнопку "Вниз"
-//                if (layoutPosition == itemCount - 1) {
-//                    solarItemDownButton.hide()
-//                }
 
                 // инициализируем слушатель при нажатии на элемент списка
                 itemView.setOnClickListener {
@@ -87,17 +121,17 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
                 }
                 // инициализируем слушатель при нажатии на кнпку "Вверх"
                 solarItemUpButton.setOnClickListener {
-                    moveItemUp(this)
+                    moveItemUp()
                 }
                 // инициализируем слушатель при нажатии на кнпку "Вниз"
                 solarItemDownButton.setOnClickListener {
-                    moveItemDown(this)
+                    moveItemDown()
                 }
             }
         }
 
         // метод перемещения элемента списка на одну позицию вверх
-        private fun moveItemUp(binding: ItemSolarFlareDataBinding) {
+        private fun moveItemUp() {
             solarData.removeAt(layoutPosition).apply {
                 if (layoutPosition > 0) {
                     solarData.add(layoutPosition - 1, this)
@@ -111,7 +145,7 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
         }
 
         // метод перемещения элемента списка на одну позицию вниз
-        private fun moveItemDown(binding: ItemSolarFlareDataBinding) {
+        private fun moveItemDown() {
             solarData.removeAt(layoutPosition).apply {
                 if (layoutPosition < itemCount) {
                     solarData.add(layoutPosition + 1, this)

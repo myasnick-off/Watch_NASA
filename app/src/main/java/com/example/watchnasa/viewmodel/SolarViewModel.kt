@@ -47,8 +47,7 @@ class SolarViewModel(
                     addUniqueData(response.body()!!)
                 } else {
                     // помещаем новые данные взамен старых
-                    data.clear()
-                    data.addAll(response.body()!!)
+                    data = (response.body() as MutableList<SolarFlareResponseData>?)!!
                 }
                 liveData.value = SolarDataSate.Success(addTimeTitlesToList(data))
             } else {

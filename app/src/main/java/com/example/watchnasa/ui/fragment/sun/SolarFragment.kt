@@ -155,7 +155,7 @@ class SolarFragment : Fragment() {
             }
         }
         // передаем в адаптер новые список с данными и listener
-        adapter.setData(solarData as MutableList)
+        adapter.setItems(solarData as MutableList)
         adapter.setItemListener(itemClickListener)
     }
 
@@ -169,6 +169,7 @@ class SolarFragment : Fragment() {
             .show()
     }
 
+    // интерфейс обработки нажатия на элемент RecyclerView
     interface SolarItemClickListener {
         fun onItemClicked(itemPosition: Int)
     }
