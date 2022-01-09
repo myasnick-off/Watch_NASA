@@ -1,7 +1,7 @@
 package com.example.watchnasa.ui.fragment.sun
 
 interface ItemTouchHelperAdapter {
-    fun onItemMove(from: Int, to: Int)
+    fun onItemMove(fromPosition: Int, toPosition: Int)
     fun onItemDismiss(position: Int)
 }
 
