@@ -107,12 +107,11 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
         override fun bind(data: SolarFlareResponseData) {
             ItemSolarFlareDataBinding.bind(itemView).apply {
                 // заполняем все поля элемента списка данными из data
-                val context = itemView.context
-                startTimeTextView.text = "${context.getString(R.string.start_time)} ${data.beginTime}"
-                peakTimeTextView.text = "${context.getString(R.string.peak_time)} ${data.peakTime}"
-                endTimeTextView.text = "${context.getString(R.string.end_time)} ${data.endTime}"
-                intensityTextView.text = "${context.getString(R.string.intensity)} ${data.classType}"
-                regionTextView.text = "${context.getString(R.string.region)} ${data.sourceLocation}"
+                startTimeTextView.text = data.beginTime
+                peakTimeTextView.text = data.peakTime
+                endTimeTextView.text = data.endTime
+                intensityTextView.text = data.classType
+                regionTextView.text = data.sourceLocation
 
                 // инициализируем слушатель при нажатии на элемент списка
                 itemView.setOnClickListener {

@@ -70,11 +70,12 @@ class SolarFragment : Fragment() {
         solarDataRecyclerView.adapter = adapter
         ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(solarDataRecyclerView)
 
-        // открываем календарь при нажатии на кнопку FAB
+        // открываем календарь при нажатии на кнопку FAB для загрузки новых данных
         solarFab.setOnClickListener {
             showCalendarDialog(SET_KEY)
         }
 
+        // открываем календарь при нажатии на кнопку FAB для добавления данных к уже загруженным
         solarAddFab.setOnClickListener {
             showCalendarDialog(ADD_KEY)
         }
@@ -157,9 +158,13 @@ class SolarFragment : Fragment() {
             .build()
         dateRangePicker.addOnPositiveButtonClickListener {
             dateRangePicker.selection?.let {
-                startDate = Date(dateRangePicker.selection!!.first)
-                endDate = Date(dateRangePicker.selection!!.second)
-                viewModel.getSolarFlareDataFromServer(startDate, endDate, actionKey)
+                val start = Date(dateRangePicker.selection!!.first)
+                val end = Date(dateRangePicker.selection!!.second)
+                viewModel.getSolarFlareDataFromServer(start, end, actionKey)
+                if (start < startDate || actionKey == SET_KEY)
+                    startDate = start
+                if (end > endDate || actionKey == SET_KEY)
+                    endDate = end
                 showDateRange()
             }
         }
