@@ -5,7 +5,7 @@
     <string name="cancel">Cancel</string>
     <string name="wiki_search">Wikipedia search</string>
     <string name="wiki_search_helper">Enter your request for Wiki search</string>
-    <string name="wiki_url">https://en.wikipedia.org/wiki/</string>
+    <string name="wiki_url" translatable="false">https://en.wikipedia.org/wiki/</string>
     <string name="image_description">Image description</string>
     <string name="image_title">Image title</string>
     <string name="favorite">Favorite</string>
@@ -19,7 +19,7 @@
     <string name="gray_moon" translatable="false">Gray moon</string>
     <string name="red_mars" translatable="false">Red Mars</string>
     <string name="deep_space" translatable="false">Deep space</string>
-    <string name="choose_app_theme">"Choose the app theme: "</string>
+    <string name="choose_app_theme">Choose the app theme:</string>
     <string name="planets_photo">Planets photo</string>
     <string name="earth">Earth</string>
     <string name="mars">Mars</string>
@@ -51,4 +51,7 @@
     <string name="sort_by_intensity_asc">sort by intensity (asc)</string>
     <string name="sort_by_intensity_dsc">sort by intensity (dsc)</string>
     <string name="sort_by_date">sort by date</string>
+    <string name="choose_text_size">Choose text size:</string>
+    <string name="title">Text Title</string>
+    <string name="content">Text content.</string>
 </resources>

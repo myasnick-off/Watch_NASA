@@ -2,9 +2,13 @@ package com.example.watchnasa.ui.fragment.settings
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import com.example.watchnasa.R
@@ -49,6 +53,10 @@ class SettingsFragment: Fragment(), BackPressedMonitor {
             R.style.SpaceStyle -> settingsTabLayout.getTabAt(SPACE_THEME)?.select()
         }
 
+        // инициализация настроек размера текста в зависимости от сохраненного значения
+        textSizeSettingsInit()
+
+
         // обработчик переключения табов (меняем тему при переключении)
         settingsTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -57,6 +65,14 @@ class SettingsFragment: Fragment(), BackPressedMonitor {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+
+        // обработчик изменения положения слайдера
+        settingsSlider.addOnChangeListener { _, value, _ ->
+            // сохраняем выбранное значение размера текста в настройках приложения
+            setSelectedTextSize(value)
+            // применяем выбранное значение размера текста к примеру под слайдером
+            textSizeSettingsApply(value)
+        }
     }
 
     override fun onDestroy() {
@@ -94,6 +110,43 @@ class SettingsFragment: Fragment(), BackPressedMonitor {
         return true
     }
 
+    // метод инициализации настроек размера текста в зависимости от сохраненного значения
+    private fun textSizeSettingsInit() = with(binding) {
+        val relativeTextSize = getSavedTextSize()
+        settingsSlider.value = relativeTextSize
+        textSizeSettingsApply(relativeTextSize)
+    }
+
+    // метод применения размера текста к примеру под слайдером
+    private fun textSizeSettingsApply(textSize: Float) = with(binding) {
+        val spannableTitle = SpannableString(getString(R.string.title)).apply {
+            setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        val spannableContent = SpannableString(getString(R.string.content)).apply {
+            setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        settingsTitleTextView.text = spannableTitle
+        settingsContentTextView.text = spannableContent
+    }
+
+    // метод сохранения выбранного разера теста
+    private fun setSelectedTextSize(textSize: Float) {
+        val sharedPref =
+            requireActivity().getSharedPreferences(KEY_PREF, AppCompatActivity.MODE_PRIVATE)
+        sharedPref.edit().apply {
+            putFloat(KEY_TEXT_SIZE, textSize)
+            apply()
+        }
+    }
+
+    // метод загрузки сохраненного размера теста
+    private fun getSavedTextSize(): Float {
+        val sharedPref =
+            requireActivity().getSharedPreferences(KEY_PREF, AppCompatActivity.MODE_PRIVATE)
+        return sharedPref.getFloat(KEY_TEXT_SIZE, 1.5f)
+    }
+
+
     companion object {
         private const val MOON_THEME = 0
         private const val MARS_THEME = 1
@@ -101,6 +154,4 @@ class SettingsFragment: Fragment(), BackPressedMonitor {
 
         fun newInstance() = SettingsFragment()
     }
-
-
 }

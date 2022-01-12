@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_4"
     android:background="?colorOnSecondary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/padding_4">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choose_app_theme"
         android:layout_margin="@dimen/margin_8"
-        android:textSize="@dimen/text_18"/>
-    
+        android:text="@string/choose_app_theme"
+        android:textSize="@dimen/text_18" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/settings_tab_layout"
         android:layout_width="match_parent"
@@ -21,18 +23,68 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gray_moon"/>
+            android:text="@string/gray_moon" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/red_mars"/>
+            android:text="@string/red_mars" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/deep_space"/>
+            android:text="@string/deep_space" />
 
     </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_18"
+        android:background="?colorSecondary"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_32"
+        android:labelFor="@id/settings_slider"
+        android:text="@string/choose_text_size"
+        android:textSize="@dimen/text_18" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/settings_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:stepSize="0.4"
+        android:value="1.4"
+        android:valueFrom="1.0"
+        android:valueTo="1.8"
+        app:labelBehavior="gone" />
+
+    <TextView
+        android:id="@+id/settings_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_4"
+        android:textSize="@dimen/text_18"
+        tools:text="@string/title" />
+
+    <TextView
+        android:id="@+id/settings_content_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_4"
+        tools:text="@string/content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_18"
+        android:background="?colorSecondary"/>
 
 </LinearLayout>

@@ -10,6 +10,7 @@ const val KEY_PREF = "app_settings"
 const val KEY_THEME = "current_theme"
 const val KEY_ROVER_ICON = "current_rover_icon"
 const val KEY_ROVER_NAME = "current_rover_name"
+const val KEY_TEXT_SIZE = "current_text_size"
 
 class MainActivity : AppCompatActivity() {
 
