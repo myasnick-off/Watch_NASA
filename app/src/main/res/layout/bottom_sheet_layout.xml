@@ -14,16 +14,18 @@
         android:layout_width="@dimen/width_25"
         android:layout_height="@dimen/height_2"
         android:layout_marginTop="@dimen/margin_8"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="?colorPrimaryVariant"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bottom_sheet_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
+        android:gravity="center"
+        android:padding="@dimen/padding_8"
         android:textSize="@dimen/text_18"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,23 +33,22 @@
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
         tools:text="@string/image_title" />
 
-    <TextView
-        android:id="@+id/bottom_sheet_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:padding="@dimen/padding_8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title"
-        tools:text="@string/image_description" />
-
-    <View
-        android:id="@+id/bottom_space"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottom_sheet_scroll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_80"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title">
+
+        <TextView
+            android:id="@+id/bottom_sheet_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:padding="@dimen/padding_8"
+            tools:text="@string/image_description" />
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

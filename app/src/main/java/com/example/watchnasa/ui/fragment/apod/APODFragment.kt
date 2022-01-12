@@ -2,11 +2,18 @@ package com.example.watchnasa.ui.fragment.apod
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.*
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -190,8 +197,29 @@ class APODFragment : Fragment() {
                 })
             }
         }
-        bottomSheet.bottomSheetTitle.text = apodData.title
-        bottomSheet.bottomSheetTextView.text = apodData.explanation
+        apodData.title?.let {
+            val titleColor = ContextCompat.getColor(requireContext(), R.color.explanation_title_color)
+            val spannableTitle = SpannableString(it).apply {
+                setSpan(ForegroundColorSpan(titleColor), 0, it.length, 0)
+//                setSpan(RelativeSizeSpan(2.0f), 0, it.length, 0)
+            }
+            bottomSheet.bottomSheetTitle.text = spannableTitle
+        }
+
+        apodData.explanation?.let {
+            val spannableExplanation = SpannableString(it).apply {
+//                setSpan(RelativeSizeSpan(2.0f), 0, it.length, 0)
+            }
+            bottomSheet.bottomSheetTextView.text = spannableExplanation
+            val params = bottomSheet.bottomSheetTextView.layoutParams as FrameLayout.LayoutParams
+            params.bottomMargin = 200
+            bottomSheet.bottomSheetTextView.layoutParams = params
+            // задаем тексту описания шруфт из папки assets
+            bottomSheet.bottomSheetTextView.typeface =
+                Typeface.createFromAsset(requireContext().assets, "font/EternalUiRegular.ttf")
+        }
+
+        // инициализируем поведение BottomSheet
         val behavior = BottomSheetBehavior.from(bottomSheet.bottomSheetContainer)
         behavior.halfExpandedRatio = 0.25f
         behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
