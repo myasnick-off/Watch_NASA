@@ -54,4 +54,6 @@
     <string name="choose_text_size">Choose text size:</string>
     <string name="title">Text Title</string>
     <string name="content">Text content.</string>
+    <string name="about_intensity">About Solar Intensity</string>
+    <string name="solar_intensity_information">Classification proposed in 1970 by D. Baker. A solar flare is assigned a score - a designation from a Latin letter and an index after it. The letter can be A, B, C, M, or X, depending on the magnitude of the X-ray intensity peak reached by the flare (from the smallest peak to the largest). The index refines the value of the flash intensity and can be from 1.0 to 9.9 for the letters A, B, C, M and more - for the letter X.</string>
 </resources>

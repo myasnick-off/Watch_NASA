@@ -175,15 +175,30 @@ class SolarFragment : Fragment() {
     private fun showSolarData(solarData: List<SolarFlareResponseData>) = with(binding) {
         // реализуем listener для элементов RecyclerView
         val itemClickListener = object : SolarItemClickListener {
+            // обработчик нажатия на элемент списка для перехода на сайт с деталбной информацией
             override fun onItemClicked(itemPosition: Int) {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(adapter.getItems()[itemPosition].link)
                 })
             }
+            // обработчик нажатия на текст "Интенсивность" для вывода диалога и информацией
+            override fun onIntensityTextClicked() {
+                showInfoDialog()
+            }
         }
         // передаем в адаптер новые список с данными и listener
         adapter.setItems(solarData as MutableList)
         adapter.setItemListener(itemClickListener)
+    }
+
+    private fun showInfoDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.about_intensity)
+            .setMessage(R.string.solar_intensity_information)
+            .setIcon(R.drawable.ic_baseline_info_24)
+            .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
     }
 
     private fun showWarningDialog() {
@@ -199,6 +214,7 @@ class SolarFragment : Fragment() {
     // интерфейс обработки нажатия на элемент RecyclerView
     interface SolarItemClickListener {
         fun onItemClicked(itemPosition: Int)
+        fun onIntensityTextClicked()
     }
 
     companion object {

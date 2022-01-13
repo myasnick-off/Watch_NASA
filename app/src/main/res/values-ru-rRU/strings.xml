@@ -22,7 +22,7 @@
     <string name="start_time">"Начало: "</string>
     <string name="peak_time">"Пик: "</string>
     <string name="end_time">"Окончание: "</string>
-    <string name="intensity">"Интерсивность: "</string>
+    <string name="intensity">"Интенсивность: "</string>
     <string name="region">"Область источника: "</string>
     <string name="solar_flare">Солнечные вспышки</string>
     <string name="sun">Солнце</string>
@@ -41,4 +41,6 @@
     <string name="choose_text_size">Выберите размер текста:</string>
     <string name="title">Заголовок текста</string>
     <string name="content">Содержимое текста</string>
+    <string name="about_intensity">Об интенсивности солнечных вспышек</string>
+    <string name="solar_intensity_information">Классификация, предложенная в 1970 году Д.Бейкером. Солнечной вспышке присваивается балл — обозначение из латинской буквы и индекса за ней. Буквой может быть A, B, C, M или X в зависимости от величины достигнутого вспышкой пика интенсивности рентгеновского излучения (от меньшего пика к большему). Индекс уточняет значение интенсивности вспышки и может быть от 1,0 до 9,9 для букв A, B, C, M и более — для буквы X.</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.watchnasa.ui.fragment.sun
 
 import android.annotation.SuppressLint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -110,18 +112,29 @@ class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<S
         @SuppressLint("SetTextI18n")
         override fun bind(data: SolarFlareResponseData) {
             ItemSolarFlareDataBinding.bind(itemView).apply {
-                // заполняем все поля элемента списка данными из data
+                // форматируем и заполняем все поля элемента списка данными из data
                 startTimeTextView.text = spanText(data.beginTime, textSize)
                 peakTimeTextView.text = spanText(data.peakTime, textSize)
                 endTimeTextView.text = spanText(data.endTime, textSize)
                 intensityTextView.text = spanText(data.classType, textSize)
                 regionTextView.text = spanText(data.sourceLocation, textSize)
                 // форматируем текст заголовков
-                spanTitle(startTimeTitle, textSize)
-                spanTitle(peakTimeTitle, textSize)
-                spanTitle(endTimeTitle, textSize)
-                spanTitle(intensityTitle, textSize)
-                spanTitle(regionTitle, textSize)
+                startTimeTitle.text = spanTitle(startTimeTitle, textSize)
+                peakTimeTitle.text = spanTitle(peakTimeTitle, textSize)
+                endTimeTitle.text = spanTitle(endTimeTitle, textSize)
+                regionTitle.text = spanTitle(regionTitle, textSize)
+
+                // форматируем текст заголовка "Интенсивность"
+                val intensityText = spanTitle(intensityTitle, textSize)
+                // делаем текст заголовка "Интенсивность" кликабельным
+                val clickableSpan = object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        itemListener.onIntensityTextClicked()
+                    }
+                }
+                intensityText.setSpan(clickableSpan, 0, intensityText.length, 0)
+                intensityTitle.movementMethod = LinkMovementMethod.getInstance()
+                intensityTitle.text = intensityText
 
                 // инициализируем слушатель при нажатии на элемент списка
                 itemView.setOnClickListener {
