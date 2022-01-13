@@ -1,19 +1,11 @@
 package com.example.watchnasa.ui.fragment.sun
 
 import android.annotation.SuppressLint
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.watchnasa.R
 import com.example.watchnasa.databinding.ItemSolarFlareDataBinding
 import com.example.watchnasa.databinding.ItemSolarFlareTitleBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
@@ -36,6 +28,10 @@ class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<S
         result.dispatchUpdatesTo(this)
         solarData.clear()
         solarData.addAll(newItems)
+    }
+
+    fun getItems(): List<SolarFlareResponseData> {
+        return solarData
     }
 
     // метод передачи listener'а для элементов списка в адаптер

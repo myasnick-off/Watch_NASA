@@ -177,7 +177,7 @@ class SolarFragment : Fragment() {
         val itemClickListener = object : SolarItemClickListener {
             override fun onItemClicked(itemPosition: Int) {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(solarData[itemPosition].link)
+                    data = Uri.parse(adapter.getItems()[itemPosition].link)
                 })
             }
         }
