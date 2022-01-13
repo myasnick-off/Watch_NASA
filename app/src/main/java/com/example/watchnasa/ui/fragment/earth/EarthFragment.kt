@@ -1,12 +1,15 @@
 package com.example.watchnasa.ui.fragment.earth
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,10 +19,9 @@ import coil.load
 import com.example.watchnasa.BuildConfig
 import com.example.watchnasa.databinding.FragmentEarthBinding
 import com.example.watchnasa.repository.dto.EpicResponseData
-import com.example.watchnasa.utils.DURATION_500
-import com.example.watchnasa.utils.hide
-import com.example.watchnasa.utils.show
-import com.example.watchnasa.utils.showErrorDialog
+import com.example.watchnasa.ui.KEY_PREF
+import com.example.watchnasa.ui.KEY_TEXT_SIZE
+import com.example.watchnasa.utils.*
 import com.example.watchnasa.viewmodel.EpicState
 import com.example.watchnasa.viewmodel.EpicViewModel
 
@@ -96,9 +98,20 @@ class EarthFragment : Fragment() {
     }
 
     private fun showData(epicData: EpicResponseData) = with(binding) {
+        // загружаем картинку по полученному URL
         earthPhotoView.load(imageUrlFromData(epicData))
-        earthDataCard.photoTitleTextView.text = epicData.caption
-        earthDataCard.photoDateTextView.text = epicData.date
+        // инициализируем текстовые View в соответствии с размером текста из настоек приложения
+        earthDataCard.photoTitleTextView.text = spanText(epicData.caption)
+        earthDataCard.photoDateTextView.text = spanText(epicData.date)
+    }
+
+    // метод форматирования текста (изменения размера)
+    private fun spanText(data: String): SpannableString {
+        val textSize = getSavedTextSize(requireActivity())
+        val spannableText = SpannableString(data).apply {
+            setSpan(RelativeSizeSpan(textSize), 0, this.length, 0)
+        }
+        return spannableText
     }
 
     private fun imageUrlFromData(epicData: EpicResponseData): String {

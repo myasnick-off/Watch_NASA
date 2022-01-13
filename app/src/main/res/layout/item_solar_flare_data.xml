@@ -18,7 +18,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/start_time"
-            android:textSize="@dimen/text_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +26,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_8"
-            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/start_time" />
@@ -38,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/peak_time"
-            android:textSize="@dimen/text_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/start_time_title" />
 
@@ -48,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_8"
-            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             app:layout_constraintTop_toBottomOf="@id/start_time_text_view"
             tools:text="@string/peak_time" />
@@ -59,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/end_time"
-            android:textSize="@dimen/text_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/peak_time_title" />
 
@@ -69,7 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_8"
-            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             app:layout_constraintTop_toBottomOf="@id/peak_time_text_view"
             tools:text="@string/end_time" />
@@ -80,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/intensity"
-            android:textSize="@dimen/text_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/end_time_title" />
 
@@ -90,7 +83,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_8"
-            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             app:layout_constraintTop_toBottomOf="@id/end_time_text_view"
             tools:text="@string/intensity" />
@@ -101,7 +93,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/region"
-            android:textSize="@dimen/text_18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/intensity_title" />
 
@@ -111,7 +102,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:layout_marginEnd="@dimen/margin_8"
-            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
             app:layout_constraintTop_toBottomOf="@id/intensity_text_view"
             tools:text="@string/region" />

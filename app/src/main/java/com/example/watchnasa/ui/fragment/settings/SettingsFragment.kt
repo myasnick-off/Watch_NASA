@@ -15,6 +15,7 @@ import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSettingsBinding
 import com.example.watchnasa.ui.*
 import com.example.watchnasa.ui.fragment.apod.APODFragment
+import com.example.watchnasa.utils.getSavedTextSize
 import com.google.android.material.tabs.TabLayout
 
 class SettingsFragment: Fragment(), BackPressedMonitor {
@@ -112,7 +113,7 @@ class SettingsFragment: Fragment(), BackPressedMonitor {
 
     // метод инициализации настроек размера текста в зависимости от сохраненного значения
     private fun textSizeSettingsInit() = with(binding) {
-        val relativeTextSize = getSavedTextSize()
+        val relativeTextSize = getSavedTextSize(requireActivity())
         settingsSlider.value = relativeTextSize
         textSizeSettingsApply(relativeTextSize)
     }
@@ -138,14 +139,6 @@ class SettingsFragment: Fragment(), BackPressedMonitor {
             apply()
         }
     }
-
-    // метод загрузки сохраненного размера теста
-    private fun getSavedTextSize(): Float {
-        val sharedPref =
-            requireActivity().getSharedPreferences(KEY_PREF, AppCompatActivity.MODE_PRIVATE)
-        return sharedPref.getFloat(KEY_TEXT_SIZE, 1.5f)
-    }
-
 
     companion object {
         private const val MOON_THEME = 0

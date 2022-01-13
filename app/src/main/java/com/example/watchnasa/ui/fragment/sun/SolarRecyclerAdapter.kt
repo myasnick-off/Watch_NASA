@@ -1,9 +1,16 @@
 package com.example.watchnasa.ui.fragment.sun
 
 import android.annotation.SuppressLint
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.watchnasa.R
@@ -17,7 +24,8 @@ private const val TIME_TITLE_TYPE = 0
 private const val CLASS_TITLE_TYPE = 1
 private const val DATA_TYPE = 2
 
-class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchHelperAdapter {
+class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<SolarViewHolder>(),
+    ItemTouchHelperAdapter {
 
     private var solarData: MutableList<SolarFlareResponseData> = mutableListOf()
     private lateinit var itemListener: SolarFragment.SolarItemClickListener
@@ -107,11 +115,17 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
         override fun bind(data: SolarFlareResponseData) {
             ItemSolarFlareDataBinding.bind(itemView).apply {
                 // заполняем все поля элемента списка данными из data
-                startTimeTextView.text = data.beginTime
-                peakTimeTextView.text = data.peakTime
-                endTimeTextView.text = data.endTime
-                intensityTextView.text = data.classType
-                regionTextView.text = data.sourceLocation
+                startTimeTextView.text = spanText(data.beginTime, textSize)
+                peakTimeTextView.text = spanText(data.peakTime, textSize)
+                endTimeTextView.text = spanText(data.endTime, textSize)
+                intensityTextView.text = spanText(data.classType, textSize)
+                regionTextView.text = spanText(data.sourceLocation, textSize)
+                // форматируем текст заголовков
+                spanTitle(startTimeTitle, textSize)
+                spanTitle(peakTimeTitle, textSize)
+                spanTitle(endTimeTitle, textSize)
+                spanTitle(intensityTitle, textSize)
+                spanTitle(regionTitle, textSize)
 
                 // инициализируем слушатель при нажатии на элемент списка
                 itemView.setOnClickListener {
@@ -177,11 +191,11 @@ class SolarRecyclerAdapter : RecyclerView.Adapter<SolarViewHolder>(), ItemTouchH
             ItemSolarFlareTitleBinding.bind(itemView).apply {
                 // если элемент списка является заголовком даты в текстовое поле вносим заголовок даты
                 if (getItemViewType(layoutPosition) == TIME_TITLE_TYPE) {
-                    timeTitleTextView.text = data.beginTime
+                    timeTitleTextView.text = spanText(data.beginTime, textSize)
                 }
                 // если элемент списка является заголовком класса в текстовое поле вносим заголовок класса
                 if (getItemViewType(layoutPosition) == CLASS_TITLE_TYPE) {
-                    timeTitleTextView.text = data.classType
+                    timeTitleTextView.text = spanText(data.classType, textSize)
                 }
             }
         }

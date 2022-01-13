@@ -19,6 +19,7 @@ import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentSolarBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
 import com.example.watchnasa.ui.MainActivity
+import com.example.watchnasa.utils.getSavedTextSize
 import com.example.watchnasa.utils.hide
 import com.example.watchnasa.utils.show
 import com.example.watchnasa.viewmodel.ADD_KEY
@@ -66,7 +67,7 @@ class SolarFragment : Fragment() {
         viewModel.getSolarFlareDataFromServer(startDate, endDate, SET_KEY)
 
         // создаем и присваиваем адаптер для RecyclerView
-        adapter = SolarRecyclerAdapter()
+        adapter = SolarRecyclerAdapter(getSavedTextSize(requireActivity()))
         solarDataRecyclerView.adapter = adapter
         ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(solarDataRecyclerView)
 

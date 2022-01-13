@@ -1,10 +1,14 @@
 package com.example.watchnasa.ui.fragment.mars
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.*
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.*
 import coil.load
@@ -12,6 +16,7 @@ import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentMarsPhotoBinding
 import com.example.watchnasa.repository.dto.PhotoResponseData
 import com.example.watchnasa.utils.DURATION_500
+import com.example.watchnasa.utils.getSavedTextSize
 import com.example.watchnasa.utils.hide
 import com.example.watchnasa.utils.show
 import kotlin.collections.ArrayList
@@ -78,15 +83,26 @@ class MarsPhotoFragment : Fragment() {
         _binding = null
     }
 
-    @SuppressLint("SetTextI18n")
     private fun showData() = with(binding) {
         val photoData = photoDataList[position]
-        marsDataCard.marsRoverTextView.text = "${getString(R.string.rover_name)} ${photoData.rover.name}"
-        marsDataCard.marsCameraTypeTextView.text =
-            "${getString(R.string.camera_type)} ${photoData.camera.fullName}"
-        marsDataCard.marsPhotoDateTextView.text =
-            "${getString(R.string.earth_date)} ${photoData.earthDate}"
+
+        marsDataCard.marsRoverTextView.text = spanText(R.string.rover_name, photoData.rover.name)
+        marsDataCard.marsCameraTypeTextView.text = spanText(R.string.camera_type, photoData.camera.fullName)
+        marsDataCard.marsPhotoDateTextView.text = spanText(R.string.earth_date, photoData.earthDate)
+
         marsPhotoView.load(photoData.imgSrc)
+    }
+
+    // метод форматирования текста для фотоданных Марса
+    private fun spanText(titleRes: Int, data: String): SpannableStringBuilder {
+        val textSize = getSavedTextSize(requireActivity())
+        val textColor = ContextCompat.getColor(requireContext(), R.color.explanation_title_color)
+        val spannableText = SpannableStringBuilder(getString(titleRes)).apply {
+                setSpan(ForegroundColorSpan(textColor), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+                append(" $data")
+            }
+        return spannableText
     }
 
     companion object {

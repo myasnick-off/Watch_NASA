@@ -5,8 +5,7 @@
     android:id="@+id/solar_data_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/radius_10"
-    android:layout_margin="@dimen/margin_4">
+    app:cardCornerRadius="@dimen/radius_10">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,11 +15,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/photo_title_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            tools:text="@string/earth_photo_description"
-            android:textSize="@dimen/text_18" />
+            android:gravity="center_horizontal"
+            tools:text="@string/earth_photo_description" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/photo_date_text_view"
@@ -28,8 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_4"
-            tools:text="@string/date"
-            android:textSize="@dimen/text_16" />
+            tools:text="@string/date" />
 
     </LinearLayout>
 
