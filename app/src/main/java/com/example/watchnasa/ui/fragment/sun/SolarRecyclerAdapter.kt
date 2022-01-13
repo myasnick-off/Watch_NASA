@@ -2,12 +2,15 @@ package com.example.watchnasa.ui.fragment.sun
 
 import android.annotation.SuppressLint
 import android.text.method.LinkMovementMethod
+import android.text.style.BackgroundColorSpan
 import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.watchnasa.R
 import com.example.watchnasa.databinding.ItemSolarFlareDataBinding
 import com.example.watchnasa.databinding.ItemSolarFlareTitleBinding
 import com.example.watchnasa.repository.dto.SolarFlareResponseData
@@ -116,7 +119,17 @@ class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<S
                 startTimeTextView.text = spanText(data.beginTime, textSize)
                 peakTimeTextView.text = spanText(data.peakTime, textSize)
                 endTimeTextView.text = spanText(data.endTime, textSize)
-                intensityTextView.text = spanText(data.classType, textSize)
+                val intensityText = spanText(data.classType, textSize)
+                // задаем цвет фона значения интенсивности, если оно относится к классу M или X
+                if (intensityText.contains('M')) {
+                    val color = ContextCompat.getColor(itemView.context, R.color.orange)
+                    intensityText.setSpan(BackgroundColorSpan(color), 0, intensityText.length, 0)
+                }
+                if (intensityText.contains('X')) {
+                    val color = ContextCompat.getColor(itemView.context, R.color.red)
+                    intensityText.setSpan(BackgroundColorSpan(color), 0, intensityText.length, 0)
+                }
+                intensityTextView.text = intensityText
                 regionTextView.text = spanText(data.sourceLocation, textSize)
                 // форматируем текст заголовков
                 startTimeTitle.text = spanTitle(startTimeTitle, textSize)
@@ -125,16 +138,16 @@ class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<S
                 regionTitle.text = spanTitle(regionTitle, textSize)
 
                 // форматируем текст заголовка "Интенсивность"
-                val intensityText = spanTitle(intensityTitle, textSize)
+                val intensityTitle = spanTitle(intensityTitle, textSize)
                 // делаем текст заголовка "Интенсивность" кликабельным
                 val clickableSpan = object : ClickableSpan() {
                     override fun onClick(widget: View) {
                         itemListener.onIntensityTextClicked()
                     }
                 }
-                intensityText.setSpan(clickableSpan, 0, intensityText.length, 0)
-                intensityTitle.movementMethod = LinkMovementMethod.getInstance()
-                intensityTitle.text = intensityText
+                intensityTitle.setSpan(clickableSpan, 0, intensityTitle.length, 0)
+                this.intensityTitle.movementMethod = LinkMovementMethod.getInstance()
+                this.intensityTitle.text = intensityTitle
 
                 // инициализируем слушатель при нажатии на элемент списка
                 itemView.setOnClickListener {
