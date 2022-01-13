@@ -1,58 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/solar_data_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/radius_10"
-    android:layout_margin="@dimen/margin_4">
+    android:layout_margin="@dimen/margin_4"
+    app:cardCornerRadius="@dimen/radius_10">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:padding="@dimen/padding_8">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/start_time_text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/start_time_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/start_time"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/peak_time_text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/start_time_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/start_time" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/peak_time_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/peak_time"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/start_time_title" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/end_time_text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/peak_time_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintTop_toBottomOf="@id/start_time_text_view"
+            tools:text="@string/peak_time" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/end_time_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/end_time"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/peak_time_title" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/intensity_text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/end_time_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintTop_toBottomOf="@id/peak_time_text_view"
+            tools:text="@string/end_time" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/intensity_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/intensity"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/end_time_title" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/region_text_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/intensity_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintTop_toBottomOf="@id/end_time_text_view"
+            tools:text="@string/intensity" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/region_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
             android:text="@string/region"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/intensity_title" />
 
-    </LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/region_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_barrier"
+            app:layout_constraintTop_toBottomOf="@id/intensity_text_view"
+            tools:text="@string/region" />
+
+        <View
+            android:id="@+id/solar_item_barrier"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:background="?colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/solar_item_remove_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/solar_item_up_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.13"
+            app:layout_constraintHeight_percent="0.22"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+            app:layout_constraintBottom_toTopOf="@+id/solar_item_remove_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/solar_item_remove_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.13"
+            app:layout_constraintHeight_percent="0.45"
+            android:src="@drawable/ic_baseline_remove_circle_outline_24"
+            app:layout_constraintBottom_toTopOf="@id/solar_item_down_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/solar_item_up_button"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/solar_item_down_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.13"
+            app:layout_constraintHeight_percent="0.22"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/solar_item_remove_button"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.cardview.widget.CardView>

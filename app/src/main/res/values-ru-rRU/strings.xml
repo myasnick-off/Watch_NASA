@@ -36,4 +36,7 @@
     <string name="no_data_for_selected_period">Данные за выбранный период отсутствуют!</string>
     <string name="choose_another_selected_period">Пожалуйста, выберите другой период!</string>
     <string name="select_date_range">Укажите период</string>
+    <string name="sort_by_intensity_asc">Сортировка по интенсивности (asc)</string>
+    <string name="sort_by_intensity_dsc">Сортировка по интенсивности (dsc)</string>
+    <string name="sort_by_date">Сортировка по дате</string>
 </resources>

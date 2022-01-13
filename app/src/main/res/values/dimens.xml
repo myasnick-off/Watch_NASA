@@ -26,4 +26,6 @@
     <dimen name="radius_100">100dp</dimen>
     <dimen name="radius_0">0dp</dimen>
     <dimen name="elevate_12">12dp</dimen>
+    <dimen name="width_50">50dp</dimen>
+    <dimen name="height_30">30dp</dimen>
 </resources>
