@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_18"
-        android:background="?colorSecondary"/>
+        android:background="?colorSecondary" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,10 +57,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_4"
-        android:stepSize="0.5"
-        android:value="1.5"
+        android:stepSize="0.25"
+        android:value="1.0"
         android:valueFrom="1.0"
-        android:valueTo="2.0"
+        android:valueTo="1.5"
         app:labelBehavior="gone" />
 
     <TextView
@@ -68,9 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
         android:layout_marginTop="@dimen/margin_4"
         android:textSize="@dimen/text_18"
+        android:textStyle="bold"
         tools:text="@string/title" />
 
     <TextView
@@ -85,6 +85,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_18"
-        android:background="?colorSecondary"/>
+        android:background="?colorSecondary" />
 
 </LinearLayout>
