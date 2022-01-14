@@ -56,6 +56,10 @@
         <item name="fontFamily">@font/sarpanch</item>
     </style>
 
+    <style name="BaseAppTheme.Splash">
+        <item name="android:windowBackground">@drawable/splash_layer_list</item>
+    </style>
+
     <!--chipGroup-->
     <style name="MyChipGroupStyle" parent="Widget.MaterialComponents.ChipGroup">
         <item name="singleSelection">true</item>
