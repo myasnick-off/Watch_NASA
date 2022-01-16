@@ -98,10 +98,10 @@ class MarsPhotoFragment : Fragment() {
         val textSize = getSavedTextSize(requireActivity())
         val textColor = ContextCompat.getColor(requireContext(), R.color.explanation_title_color)
         val spannableText = SpannableStringBuilder(getString(titleRes)).apply {
-                setSpan(ForegroundColorSpan(textColor), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-                append(" $data")
-            }
+            setSpan(ForegroundColorSpan(textColor), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+            append(" $data")
+        }
         return spannableText
     }
 
