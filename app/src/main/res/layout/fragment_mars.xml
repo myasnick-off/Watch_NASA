@@ -107,7 +107,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/rover_name"
-            android:backgroundTint="?colorPrimary"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/mars_h_guideline"
             app:layout_constraintEnd_toStartOf="@id/mars_v_guideline" />

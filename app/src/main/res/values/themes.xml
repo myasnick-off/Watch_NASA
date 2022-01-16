@@ -21,9 +21,9 @@
         <item name="colorPrimaryVariant">@color/color_gray_dark</item>
         <item name="colorOnPrimary">@color/color_gray_light</item>
         <!-- Secondary color. -->
-        <item name="colorSecondary">@color/color_moon_light</item>
-        <item name="colorSecondaryVariant">@color/color_moon_medium</item>
-        <item name="colorOnSecondary">@color/color_moon_dark</item>
+        <item name="colorSecondary">@color/color_moon_medium</item>
+        <item name="colorSecondaryVariant">@color/color_moon_dark</item>
+        <item name="colorOnSecondary">@color/color_moon_light</item>
         <!--fonts-->
         <item name="fontFamily">@font/jura_light</item>
     </style>
@@ -35,9 +35,9 @@
         <item name="colorPrimaryVariant">@color/color_brown_dark</item>
         <item name="colorOnPrimary">@color/color_brown_light</item>
         <!-- Secondary color. -->
-        <item name="colorSecondary">@color/color_red_light</item>
-        <item name="colorSecondaryVariant">@color/color_red_medium</item>
-        <item name="colorOnSecondary">@color/color_red_dark</item>
+        <item name="colorSecondary">@color/color_red_medium</item>
+        <item name="colorSecondaryVariant">@color/color_red_dark</item>
+        <item name="colorOnSecondary">@color/color_red_light</item>
         <!--fonts-->
         <item name="fontFamily">@font/open_sans_light</item>
     </style>
@@ -49,9 +49,9 @@
         <item name="colorPrimaryVariant">@color/color_dark</item>
         <item name="colorOnPrimary">@color/color_light</item>
         <!-- Secondary color. -->
-        <item name="colorSecondary">@color/color_blue_light</item>
-        <item name="colorSecondaryVariant">@color/color_blue_medium</item>
-        <item name="colorOnSecondary">@color/color_blue_dark</item>
+        <item name="colorSecondary">@color/color_blue_medium</item>
+        <item name="colorSecondaryVariant">@color/color_blue_dark</item>
+        <item name="colorOnSecondary">@color/color_blue_light</item>
         <!--fonts-->
         <item name="fontFamily">@font/sarpanch</item>
     </style>
@@ -82,7 +82,8 @@
 
     <!--floatingActionButton-->
     <style name="MyFabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="tint">?colorSecondary</item>
+        <item name="tint">@color/white</item>
+        <item name="backgroundTint">?colorSecondaryVariant</item>
     </style>
 
     <!--Переопрделяем цвета для chip-->
