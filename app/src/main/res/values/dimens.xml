@@ -32,4 +32,5 @@
     <dimen name="margin_32">32dp</dimen>
     <dimen name="padding_12">12dp</dimen>
     <dimen name="height_24">24dp</dimen>
+    <dimen name="fab_size_48">48dp</dimen>
 </resources>

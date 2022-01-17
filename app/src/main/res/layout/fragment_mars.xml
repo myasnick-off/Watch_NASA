@@ -28,7 +28,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mars_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_8"
+            android:layout_height="@dimen/height_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

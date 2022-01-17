@@ -151,7 +151,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/apod_fab"
-        android:src="@drawable/ic_baseline_add_48"
+        app:maxImageSize="@dimen/fab_size_48"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
         app:layout_anchor="@id/apod_bottom_appbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
