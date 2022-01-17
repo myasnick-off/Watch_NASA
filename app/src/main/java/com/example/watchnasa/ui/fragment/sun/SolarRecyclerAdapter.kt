@@ -114,6 +114,7 @@ class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<S
 
         @SuppressLint("SetTextI18n")
         override fun bind(data: SolarFlareResponseData) {
+            val context = itemView.context
             ItemSolarFlareDataBinding.bind(itemView).apply {
                 // форматируем и заполняем все поля элемента списка данными из data
                 startTimeTextView.text = spanText(data.beginTime, textSize)
@@ -122,23 +123,24 @@ class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<S
                 val intensityText = spanText(data.classType, textSize)
                 // задаем цвет фона значения интенсивности, если оно относится к классу M или X
                 if (intensityText.contains('M')) {
-                    val color = ContextCompat.getColor(itemView.context, R.color.orange)
+                    val color = ContextCompat.getColor(context, R.color.orange)
                     intensityText.setSpan(BackgroundColorSpan(color), 0, intensityText.length, 0)
                 }
                 if (intensityText.contains('X')) {
-                    val color = ContextCompat.getColor(itemView.context, R.color.red)
+                    val color = ContextCompat.getColor(context, R.color.red)
                     intensityText.setSpan(BackgroundColorSpan(color), 0, intensityText.length, 0)
                 }
                 intensityTextView.text = intensityText
                 regionTextView.text = spanText(data.sourceLocation, textSize)
+
                 // форматируем текст заголовков
-                startTimeTitle.text = spanTitle(startTimeTitle, textSize)
-                peakTimeTitle.text = spanTitle(peakTimeTitle, textSize)
-                endTimeTitle.text = spanTitle(endTimeTitle, textSize)
-                regionTitle.text = spanTitle(regionTitle, textSize)
+                startTimeTitle.text = spanTitle(context.getString(R.string.start_time), textSize)
+                peakTimeTitle.text = spanTitle(context.getString(R.string.peak_time), textSize)
+                endTimeTitle.text = spanTitle(context.getString(R.string.end_time), textSize)
+                regionTitle.text = spanTitle(context.getString(R.string.region), textSize)
 
                 // форматируем текст заголовка "Интенсивность"
-                val intensityTitle = spanTitle(intensityTitle, textSize)
+                val intensityTitle = spanTitle(context.getString(R.string.intensity), textSize)
                 // делаем текст заголовка "Интенсивность" кликабельным
                 val clickableSpan = object : ClickableSpan() {
                     override fun onClick(widget: View) {

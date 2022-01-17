@@ -30,4 +30,6 @@
     <dimen name="height_30">30dp</dimen>
     <dimen name="height_200">200dp</dimen>
     <dimen name="margin_32">32dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="height_24">24dp</dimen>
 </resources>

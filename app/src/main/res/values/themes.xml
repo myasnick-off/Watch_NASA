@@ -89,7 +89,7 @@
     <!--Переопрделяем цвета для chip-->
     <style name="ThemeOverlay.App.Chip" parent="">
         <item name="colorOnSurface">@color/white</item>
-        <item name="colorSurface">?colorSecondary</item>
+        <item name="colorSurface">?colorPrimaryVariant</item>
     </style>
 
     <!--Переопрделяем формы для chip-->

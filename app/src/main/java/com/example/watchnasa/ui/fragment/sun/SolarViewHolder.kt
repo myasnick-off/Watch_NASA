@@ -26,13 +26,12 @@ abstract class SolarViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     // метод форматирования текста заголовков Вьюхолдера
-    fun spanTitle(textView: TextView, textSize: Float): SpannableString {
+    fun spanTitle(text: String, textSize: Float): SpannableString {
         val textColor = ContextCompat.getColor(itemView.context, R.color.explanation_title_color)
-        val spannableText = SpannableString(textView.text).apply {
+        val spannableText = SpannableString(text).apply {
             setSpan(ForegroundColorSpan(textColor), 0, this.length, 0)
             setSpan(RelativeSizeSpan(textSize), 0, this.length, 0)
         }
-        textView.text = spannableText
         return spannableText
     }
 }
