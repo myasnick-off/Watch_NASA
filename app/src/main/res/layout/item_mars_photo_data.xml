@@ -17,24 +17,21 @@
             android:id="@+id/mars_rover_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rover_name"
-            android:textSize="@dimen/text_18" />
+            android:text="@string/rover_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mars_camera_type_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            android:text="@string/camera_type"
-            android:textSize="@dimen/text_18" />
+            android:text="@string/camera_type" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mars_photo_date_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_4"
-            android:text="@string/earth_date"
-            android:textSize="@dimen/text_18" />
+            android:text="@string/earth_date" />
 
     </LinearLayout>
 

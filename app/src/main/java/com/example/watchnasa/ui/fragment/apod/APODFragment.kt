@@ -2,11 +2,19 @@ package com.example.watchnasa.ui.fragment.apod
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.*
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,8 +22,11 @@ import coil.load
 import com.example.watchnasa.R
 import com.example.watchnasa.databinding.FragmentApodBinding
 import com.example.watchnasa.repository.dto.ApodResponseData
+import com.example.watchnasa.ui.KEY_PREF
+import com.example.watchnasa.ui.KEY_TEXT_SIZE
 import com.example.watchnasa.ui.MainActivity
 import com.example.watchnasa.ui.fragment.PlanetsNavigationFragment
+import com.example.watchnasa.utils.getSavedTextSize
 import com.example.watchnasa.utils.hide
 import com.example.watchnasa.utils.show
 import com.example.watchnasa.utils.showErrorDialog
@@ -172,7 +183,12 @@ class APODFragment : Fragment() {
     }
 
     // метод вывода данных, полученных с сервера, на экран
-    private fun showData(apodData: ApodResponseData) = with(binding) {
+    private fun showData(apodData: ApodResponseData) {
+        pictureOfTheDayInit(apodData)
+        bottomSheetInit(apodData)
+    }
+
+    private fun pictureOfTheDayInit(apodData: ApodResponseData) = with(binding) {
         if (apodData.mediaType == "image") {
             apodImageView.show()
             apodVideoButton.hide()
@@ -190,12 +206,43 @@ class APODFragment : Fragment() {
                 })
             }
         }
-        bottomSheet.bottomSheetTitle.text = apodData.title
-        bottomSheet.bottomSheetTextView.text = apodData.explanation
+    }
+
+    // метод инициализации bottomSheet
+    private fun bottomSheetInit(apodData: ApodResponseData) = with(binding) {
+        // загружаем размер текста из настоек приложения
+        val textSize = getSavedTextSize(requireActivity())
+        // инициализируем тектовое поле заголовка
+        apodData.title?.let {
+            val titleColor = ContextCompat.getColor(requireContext(), R.color.explanation_title_color)
+            val spannableTitle = SpannableString(it).apply {
+                setSpan(ForegroundColorSpan(titleColor), 0, it.length, 0)
+                setSpan(RelativeSizeSpan(textSize), 0, it.length, 0)
+            }
+            bottomSheet.bottomSheetTitle.text = spannableTitle
+        }
+        // инициализируем тектовое поле описания
+        apodData.explanation?.let {
+            val spannableExplanation = SpannableString(it).apply {
+                setSpan(RelativeSizeSpan(textSize), 0, it.length, 0)
+            }
+            bottomSheet.bottomSheetTextView.text = spannableExplanation
+        }
+        // настраиваем отствуп после описания в зависимости от размера шрифта
+        val params = bottomSheet.bottomSheetTextView.layoutParams as FrameLayout.LayoutParams
+        params.bottomMargin = (300 * textSize).toInt()
+        bottomSheet.bottomSheetTextView.layoutParams = params
+
+        // задаем тексту описания шруфт из папки assets
+        bottomSheet.bottomSheetTextView.typeface =
+            Typeface.createFromAsset(requireContext().assets, "font/EternalUiRegular.ttf")
+
+        // инициализируем поведение BottomSheet
         val behavior = BottomSheetBehavior.from(bottomSheet.bottomSheetContainer)
         behavior.halfExpandedRatio = 0.25f
         behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
     }
+
 
     // двигаем кнопку fab враво и меняем кнопки меню
     private fun moveFabToEnd() = with(binding) {
@@ -215,7 +262,6 @@ class APODFragment : Fragment() {
         apodBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
         apodFab.setImageResource(R.drawable.ic_baseline_add_48)
     }
-
 
     companion object {
         fun newInstance() = APODFragment()

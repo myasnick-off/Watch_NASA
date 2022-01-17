@@ -28,4 +28,6 @@
     <dimen name="elevate_12">12dp</dimen>
     <dimen name="width_50">50dp</dimen>
     <dimen name="height_30">30dp</dimen>
+    <dimen name="height_200">200dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
 </resources>

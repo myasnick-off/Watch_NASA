@@ -5,7 +5,6 @@
     <string name="cancel">Отмена</string>
     <string name="wiki_search">Поиск в Википедии</string>
     <string name="wiki_search_helper">Введите ваш запрос для поиска в Википедии</string>
-    <string name="wiki_url">https://ru.wikipedia.org/wiki/</string>
     <string name="image_description">Описание картинки</string>
     <string name="image_title">Заголовок картинки</string>
     <string name="favorite">Избранное</string>
@@ -23,7 +22,7 @@
     <string name="start_time">"Начало: "</string>
     <string name="peak_time">"Пик: "</string>
     <string name="end_time">"Окончание: "</string>
-    <string name="intensity">"Интерсивность: "</string>
+    <string name="intensity">"Интенсивность: "</string>
     <string name="region">"Область источника: "</string>
     <string name="solar_flare">Солнечные вспышки</string>
     <string name="sun">Солнце</string>
@@ -39,4 +38,9 @@
     <string name="sort_by_intensity_asc">Сортировка по интенсивности (asc)</string>
     <string name="sort_by_intensity_dsc">Сортировка по интенсивности (dsc)</string>
     <string name="sort_by_date">Сортировка по дате</string>
+    <string name="choose_text_size">Выберите размер текста:</string>
+    <string name="title">Заголовок текста</string>
+    <string name="content">Содержимое текста</string>
+    <string name="about_intensity">Об интенсивности солнечных вспышек</string>
+    <string name="solar_intensity_information">Классификация, предложенная в 1970 году Д.Бейкером. Солнечной вспышке присваивается балл — обозначение из латинской буквы и индекса за ней. Буквой может быть A, B, C, M или X в зависимости от величины достигнутого вспышкой пика интенсивности рентгеновского излучения (от меньшего пика к большему). Индекс уточняет значение интенсивности вспышки и может быть от 1,0 до 9,9 для букв A, B, C, M и более — для буквы X.</string>
 </resources>
