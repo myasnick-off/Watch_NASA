@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.alpha
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -235,8 +236,8 @@ class APODFragment : Fragment() {
         bottomSheet.bottomSheetTextView.layoutParams = params
 
         // задаем тексту описания шруфт из папки assets
-        bottomSheet.bottomSheetTextView.typeface =
-            Typeface.createFromAsset(requireContext().assets, "font/EternalUiRegular.ttf")
+       /* bottomSheet.bottomSheetTextView.typeface =
+            Typeface.createFromAsset(requireContext().assets, "font/EternalUiRegular.ttf")*/
 
         // инициализируем поведение BottomSheet
         val behavior = BottomSheetBehavior.from(bottomSheet.bottomSheetContainer)

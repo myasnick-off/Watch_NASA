@@ -69,7 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_4"
-        android:textSize="@dimen/text_18"
         android:textStyle="bold"
         tools:text="@string/title" />
 
@@ -77,6 +76,7 @@
         android:id="@+id/settings_content_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="@string/alpha_05"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_4"
         tools:text="@string/content" />

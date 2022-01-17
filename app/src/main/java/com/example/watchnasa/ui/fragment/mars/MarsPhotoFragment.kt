@@ -2,6 +2,7 @@ package com.example.watchnasa.ui.fragment.mars
 
 import android.os.Bundle
 import android.text.Spannable
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
@@ -86,21 +87,24 @@ class MarsPhotoFragment : Fragment() {
     private fun showData() = with(binding) {
         val photoData = photoDataList[position]
 
-        marsDataCard.marsRoverTextView.text = spanText(R.string.rover_name, photoData.rover.name)
-        marsDataCard.marsCameraTypeTextView.text = spanText(R.string.camera_type, photoData.camera.fullName)
-        marsDataCard.marsPhotoDateTextView.text = spanText(R.string.earth_date, photoData.earthDate)
+        // форматируем текст заголовков
+        marsDataCard.marsRoverTitle.text = spanText(getString(R.string.rover_name))
+        marsDataCard.marsCameraTypeTitle.text = spanText(getString(R.string.camera_type))
+        marsDataCard.marsPhotoDateTitle.text = spanText(getString(R.string.earth_date))
+
+        // форматируем текст фотоданных
+        marsDataCard.marsRoverTextView.text = spanText(photoData.rover.name)
+        marsDataCard.marsCameraTypeTextView.text = spanText(photoData.camera.fullName)
+        marsDataCard.marsPhotoDateTextView.text = spanText(photoData.earthDate)
 
         marsPhotoView.load(photoData.imgSrc)
     }
 
     // метод форматирования текста для фотоданных Марса
-    private fun spanText(titleRes: Int, data: String): SpannableStringBuilder {
+    private fun spanText(text: String): SpannableString {
         val textSize = getSavedTextSize(requireActivity())
-        val textColor = ContextCompat.getColor(requireContext(), R.color.explanation_title_color)
-        val spannableText = SpannableStringBuilder(getString(titleRes)).apply {
-            setSpan(ForegroundColorSpan(textColor), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-            append(" $data")
+        val spannableText = SpannableString(text).apply {
+            setSpan(RelativeSizeSpan(textSize), 0, this.length, 0)
         }
         return spannableText
     }

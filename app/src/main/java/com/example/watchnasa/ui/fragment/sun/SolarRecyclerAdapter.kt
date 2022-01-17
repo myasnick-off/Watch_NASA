@@ -1,9 +1,11 @@
 package com.example.watchnasa.ui.fragment.sun
 
 import android.annotation.SuppressLint
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.BackgroundColorSpan
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,28 +125,33 @@ class SolarRecyclerAdapter(private val textSize: Float) : RecyclerView.Adapter<S
                 val intensityText = spanText(data.classType, textSize)
                 // задаем цвет фона значения интенсивности, если оно относится к классу M или X
                 if (intensityText.contains('M')) {
-                    val color = ContextCompat.getColor(context, R.color.orange)
-                    intensityText.setSpan(BackgroundColorSpan(color), 0, intensityText.length, 0)
+                    val color = ContextCompat.getColor(context, R.color.intensity_m_color)
+                    intensityText.setSpan(ForegroundColorSpan(color), 0, intensityText.length, 0)
                 }
                 if (intensityText.contains('X')) {
-                    val color = ContextCompat.getColor(context, R.color.red)
-                    intensityText.setSpan(BackgroundColorSpan(color), 0, intensityText.length, 0)
+                    val color = ContextCompat.getColor(context, R.color.intensity_x_color)
+                    intensityText.setSpan(ForegroundColorSpan(color), 0, intensityText.length, 0)
                 }
                 intensityTextView.text = intensityText
                 regionTextView.text = spanText(data.sourceLocation, textSize)
 
                 // форматируем текст заголовков
-                startTimeTitle.text = spanTitle(context.getString(R.string.start_time), textSize)
-                peakTimeTitle.text = spanTitle(context.getString(R.string.peak_time), textSize)
-                endTimeTitle.text = spanTitle(context.getString(R.string.end_time), textSize)
-                regionTitle.text = spanTitle(context.getString(R.string.region), textSize)
+                startTimeTitle.text = spanText(context.getString(R.string.start_time), textSize)
+                peakTimeTitle.text = spanText(context.getString(R.string.peak_time), textSize)
+                endTimeTitle.text = spanText(context.getString(R.string.end_time), textSize)
+                regionTitle.text = spanText(context.getString(R.string.region), textSize)
 
                 // форматируем текст заголовка "Интенсивность"
-                val intensityTitle = spanTitle(context.getString(R.string.intensity), textSize)
+                val intensityTitle = spanText(context.getString(R.string.intensity), textSize)
                 // делаем текст заголовка "Интенсивность" кликабельным
                 val clickableSpan = object : ClickableSpan() {
+                    // обработчик клика
                     override fun onClick(widget: View) {
                         itemListener.onIntensityTextClicked()
+                    }
+                    // изменение вешнго вида текста
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.isUnderlineText = true
                     }
                 }
                 intensityTitle.setSpan(clickableSpan, 0, intensityTitle.length, 0)
