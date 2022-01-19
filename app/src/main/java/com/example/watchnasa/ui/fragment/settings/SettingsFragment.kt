@@ -121,10 +121,10 @@ class SettingsFragment: Fragment(), BackPressedMonitor {
     // метод применения размера текста к примеру под слайдером
     private fun textSizeSettingsApply(textSize: Float) = with(binding) {
         val spannableTitle = SpannableString(getString(R.string.title)).apply {
-            setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(textSize), 0, this.length, 0)
         }
         val spannableContent = SpannableString(getString(R.string.content)).apply {
-            setSpan(RelativeSizeSpan(textSize), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(RelativeSizeSpan(textSize), 0, this.length, 0)
         }
         settingsTitleTextView.text = spannableTitle
         settingsContentTextView.text = spannableContent

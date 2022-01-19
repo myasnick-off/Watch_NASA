@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.alpha
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -132,6 +133,7 @@ class APODFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_bottom_appbar, menu)
     }
@@ -234,8 +236,8 @@ class APODFragment : Fragment() {
         bottomSheet.bottomSheetTextView.layoutParams = params
 
         // задаем тексту описания шруфт из папки assets
-        bottomSheet.bottomSheetTextView.typeface =
-            Typeface.createFromAsset(requireContext().assets, "font/EternalUiRegular.ttf")
+       /* bottomSheet.bottomSheetTextView.typeface =
+            Typeface.createFromAsset(requireContext().assets, "font/EternalUiRegular.ttf")*/
 
         // инициализируем поведение BottomSheet
         val behavior = BottomSheetBehavior.from(bottomSheet.bottomSheetContainer)
@@ -250,7 +252,7 @@ class APODFragment : Fragment() {
         apodBottomAppbar.navigationIcon = null
         apodBottomAppbar.replaceMenu(R.menu.menu_bottom_search)
         apodBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-        apodFab.setImageResource(R.drawable.ic_baseline_arrow_back_ios_24)
+        apodFab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_left_24)
     }
 
     // возвращаем кнопку fab в центр и меняем кнопки меню
@@ -260,7 +262,7 @@ class APODFragment : Fragment() {
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_menu_24)
         apodBottomAppbar.replaceMenu(R.menu.menu_bottom_appbar)
         apodBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-        apodFab.setImageResource(R.drawable.ic_baseline_add_48)
+        apodFab.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
     }
 
     companion object {

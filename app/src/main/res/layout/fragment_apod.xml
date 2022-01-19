@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_12"
-                android:backgroundTint="?colorOnSecondary"
+                android:backgroundTint="?colorPrimary"
                 android:src="@drawable/ic_baseline_calendar_month_24"
                 app:layout_constraintBottom_toTopOf="@id/apod_guide_lane"
                 app:layout_constraintEnd_toStartOf="@+id/apod_chip_group"
@@ -151,7 +151,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/apod_fab"
-        android:src="@drawable/ic_baseline_add_48"
+        app:maxImageSize="@dimen/fab_size_48"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
         app:layout_anchor="@id/apod_bottom_appbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -10,7 +10,6 @@
         <item name="colorSecondaryVariant">@color/color_moon_medium</item>
         <item name="colorOnSecondary">@color/color_moon_dark</item>
         <!--fonts-->
-        <item name="fontFamily">@font/jura_light</item>
     </style>
 
     <!--    Mars theme-->
@@ -24,7 +23,6 @@
         <item name="colorSecondaryVariant">@color/color_red_medium</item>
         <item name="colorOnSecondary">@color/color_red_dark</item>
         <!--fonts-->
-        <item name="fontFamily">@font/open_sans_light</item>
     </style>
 
     <!--    Deep space theme-->
@@ -38,6 +36,5 @@
         <item name="colorSecondaryVariant">@color/color_blue_medium</item>
         <item name="colorOnSecondary">@color/color_blue_dark</item>
         <!--fonts-->
-        <item name="fontFamily">@font/sarpanch</item>
     </style>
 </resources>

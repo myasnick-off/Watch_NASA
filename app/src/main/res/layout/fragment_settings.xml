@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?colorOnSecondary"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/padding_4">
 
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_18"
-        android:background="?colorSecondary" />
+        android:background="?colorPrimaryVariant" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_4"
-        android:textSize="@dimen/text_18"
         android:textStyle="bold"
         tools:text="@string/title" />
 
@@ -77,6 +76,7 @@
         android:id="@+id/settings_content_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="@string/alpha_05"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_4"
         tools:text="@string/content" />
@@ -85,6 +85,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_18"
-        android:background="?colorSecondary" />
+        android:background="?colorPrimaryVariant" />
 
 </LinearLayout>
