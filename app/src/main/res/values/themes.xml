@@ -12,6 +12,8 @@
         <item name="bottomNavigationStyle">@style/MyBottomNavStyle</item>
         <!--floatingActionButton-->
         <item name="floatingActionButtonStyle">@style/MyFabStyle</item>
+        <!--fonts-->
+                <item name="fontFamily">@font/jura_light</item>
     </style>
 
     <!--    Moon theme-->
@@ -25,7 +27,7 @@
         <item name="colorSecondaryVariant">@color/color_moon_dark</item>
         <item name="colorOnSecondary">@color/color_moon_light</item>
         <!--fonts-->
-        <item name="fontFamily">@font/jura_light</item>
+<!--        <item name="fontFamily">@font/jura_light</item>-->
     </style>
 
     <!--    Mars theme-->
@@ -39,7 +41,7 @@
         <item name="colorSecondaryVariant">@color/color_red_dark</item>
         <item name="colorOnSecondary">@color/color_red_light</item>
         <!--fonts-->
-        <item name="fontFamily">@font/open_sans_light</item>
+<!--        <item name="fontFamily">@font/open_sans_light</item>-->
     </style>
 
     <!--    Deep space theme-->
@@ -53,7 +55,7 @@
         <item name="colorSecondaryVariant">@color/color_blue_dark</item>
         <item name="colorOnSecondary">@color/color_blue_light</item>
         <!--fonts-->
-        <item name="fontFamily">@font/sarpanch</item>
+<!--        <item name="fontFamily">@font/sarpanch</item>-->
     </style>
 
     <style name="BaseAppTheme.Splash">
@@ -71,6 +73,7 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.Chip</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Chip</item>
         <item name="android:textColor">@color/chip_txt_selector_color</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Chip</item>
     </style>
 
     <!--bottomNavigation-->
@@ -96,5 +99,10 @@
     <style name="ShapeAppearanceOverlay.App.Chip" parent="">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="TextAppearance.App.Chip" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:fontFamily">@font/jura_light</item>
+        <item name="fontFamily">@font/jura_light</item>
     </style>
 </resources>
